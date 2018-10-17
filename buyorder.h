@@ -16,6 +16,8 @@ class BuyOrder{
 		
 		BuyOrder(const std::string& name, int volume, double price, int orderTime);
 		
+		BuyOrder(const std::string& name);
+		
 		~BuyOrder();
 		
 		//returns the name of the order

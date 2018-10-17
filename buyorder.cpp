@@ -10,6 +10,11 @@ BuyOrder::BuyOrder(const std::string& name, int volume, double price, int orderT
 	
 }
 
+BuyOrder::BuyOrder(const std::string& name)
+: m_name(name), m_volume(0), m_price(0), m_orderTime(0) {
+	
+}
+
 BuyOrder::~BuyOrder() {
 	
 }
