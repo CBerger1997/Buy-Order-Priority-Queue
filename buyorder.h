@@ -13,10 +13,15 @@ class BuyOrder{
 		long m_orderTime;
 		
 	public:
+		//default constructor which defines an order name as "EmptyOrder" 
+		//and initialises all other variables to 0
 		BuyOrder();
 		
+		//customised constructor which defines an order based upon 
+		//the specified variables passed through the parameters
 		BuyOrder(const std::string& name, int volume, double price, long orderTime);
-				
+			
+		//default constructor provided by the compiler
 		~BuyOrder();
 		
 		//returns the name of the order
@@ -46,12 +51,19 @@ class BuyOrder{
 		//prints the BuyOrder passed through the parameters
 		std::string print(BuyOrder buyorder);
 		
+		//operator comparing the price of two orders and returns true if the current object 
+		//buy order price is less than the specified 'rhs' price
 		bool operator<(const BuyOrder& rhs);
 		
+		//assignment operator setting the member variables of the current object 
+		//to the member variables of the specified 'rhs' member variables
 		BuyOrder operator=(const BuyOrder& rhs);
 		
+		//operator which returns true if the current object 
+		//and specified 'rhs' have the same member variables
 		bool operator==(const BuyOrder& rhs);
 		
+		//operator overloading for the output stream
 		friend std::ostream& operator<<(std::ostream &os, const BuyOrder &buyorder);
 };
 

@@ -6,17 +6,24 @@
 
 //----------------------------------------------------------------------------------------
 
+TEST(QueueConstructor, TickerConstructor) {
+	PriorityQueue queue("VOD.L");
+	EXPECT_EQ("VOD.L", queue.getTicker());
+}
+
+//----------------------------------------------------------------------------------------
+
 TEST(QueueManipulation, EmptyQueue) {
 	PriorityQueue queue;
 	
-	EXPECT_EQ("EMPTYORDER", queue.getQueueFromIndex(0).getName());
+	EXPECT_EQ("EMPTYORDER", queue.getOrderFromIndex(0).getName());
 }
 
 TEST(QueueManipulation, AddingToQueue) {
 	PriorityQueue queue;
 	BuyOrder order("order 1", 100, 32.6, 123456789);
 	queue.addOrderToQueue(order);
-	EXPECT_EQ(order.getName(), queue.getQueueFromIndex(0).getName());
+	EXPECT_EQ(order.getName(), queue.getOrderFromIndex(0).getName());
 }
 
 TEST(QueueManipulation, AddingMultipleToQueue) {
@@ -28,7 +35,7 @@ TEST(QueueManipulation, AddingMultipleToQueue) {
 	}
 	
 	for(int i = 0; i < 5; i++) {
-		EXPECT_EQ(order.getName(), queue.getQueueFromIndex(i).getName());
+		EXPECT_EQ(order.getName(), queue.getOrderFromIndex(i).getName());
 	}
 }
 
@@ -41,7 +48,7 @@ TEST(QueueManipulation, CreatingNewArray) {
 	}
 	
 	for(int i = 0; i < 20; i++) {
-		EXPECT_EQ(order.getName(), queue.getQueueFromIndex(i).getName());
+		EXPECT_EQ(order.getName(), queue.getOrderFromIndex(i).getName());
 	}
 }
 
@@ -58,8 +65,10 @@ TEST(QueueManipulation, CreatingMultipleNewArrays) {
 	for(int i = 0; i < 200; i++) {
 		std::stringstream ss;
 		ss << i + 1<< " order\n";
-		EXPECT_EQ(ss.str(), queue.getQueueFromIndex(i).getName());
+		EXPECT_EQ(ss.str(), queue.getOrderFromIndex(i).getName());
 	}
+	
+	//queue.print();
 }
 
 //----------------------------------------------------------------------------------------
@@ -116,5 +125,5 @@ TEST(QueuePriority, RemovePriorityOrderFromQueue) {
 	queue.addOrderToQueue(order1);
 	queue.addOrderToQueue(order2);
 	queue.removeHighestPriorityOrder();
-	EXPECT_EQ("EmptyOrder", queue.getQueueFromIndex(1).getName());
+	EXPECT_EQ("EmptyOrder", queue.getOrderFromIndex(1).getName());
 }

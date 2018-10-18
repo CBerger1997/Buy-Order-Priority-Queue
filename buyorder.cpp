@@ -3,6 +3,10 @@
 #include <string>
 
 BuyOrder::BuyOrder() {
+	m_name = "EmptyOrder";
+	m_volume = 0;
+	m_price = 0;
+	m_orderTime = 0;
 }
 
 BuyOrder::BuyOrder(const std::string& name, int volume, double price, long orderTime)

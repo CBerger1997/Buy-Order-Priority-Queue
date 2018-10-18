@@ -4,11 +4,24 @@
 PriorityQueue::PriorityQueue() {
 	m_arrayCurCapacity = 0;
 	m_arrayMaxCapacity = 15;
+	m_ticker = "";
 	
 	m_buyOrderQueue = new BuyOrder[m_arrayMaxCapacity];
 	BuyOrder emptyOrder;
 	emptyOrder.setName("EMPTYORDER");
 	m_buyOrderQueue[0] = emptyOrder;
+}
+
+PriorityQueue::PriorityQueue(std::string ticker) {
+	m_arrayCurCapacity = 0;
+	m_arrayMaxCapacity = 15;
+	
+	m_buyOrderQueue = new BuyOrder[m_arrayMaxCapacity];
+	BuyOrder emptyOrder;
+	emptyOrder.setName("EMPTYORDER");
+	m_buyOrderQueue[0] = emptyOrder;
+	
+	m_ticker = ticker;
 }
 
 PriorityQueue::~PriorityQueue() {
