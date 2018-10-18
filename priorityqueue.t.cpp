@@ -22,7 +22,7 @@ TEST(QueueManipulation, EmptyQueue) {
 TEST(QueueManipulation, AddingToQueue) {
 	PriorityQueue queue;
 	BuyOrder order("order 1", 100, 32.6, 123456789);
-	queue.addOrderToQueue(order);
+	queue.add(order);
 	EXPECT_EQ(order.getName(), queue.getOrderFromIndex(0).getName());
 }
 
@@ -31,7 +31,7 @@ TEST(QueueManipulation, AddingMultipleToQueue) {
 	BuyOrder order("order 1", 100, 32.6, 123456789);
 	
 	for(int i = 0; i < 5; i++) {
-		queue.addOrderToQueue(order);
+		queue.add(order);
 	}
 	
 	for(int i = 0; i < 5; i++) {
@@ -44,7 +44,7 @@ TEST(QueueManipulation, CreatingNewArray) {
 	BuyOrder order("order 1", 100, 32.6, 123456789);
 	
 	for(int i = 0; i < 20; i++) {
-		queue.addOrderToQueue(order);
+		queue.add(order);
 	}
 	
 	for(int i = 0; i < 20; i++) {
@@ -59,7 +59,7 @@ TEST(QueueManipulation, CreatingMultipleNewArrays) {
 		std::stringstream ss;
 		ss << i + 1 << " order\n";
 		BuyOrder order(ss.str(), 100, 32.6, i);
-		queue.addOrderToQueue(order);
+		queue.add(order);
 	}
 	
 	for(int i = 0; i < 200; i++) {
@@ -78,9 +78,9 @@ TEST(QueuePriority, GetHighestPriorityOfOnePrice) {
 	
 	BuyOrder order1("order 1", 100, 35.0, 1);
 	
-	queue.addOrderToQueue(order1);
+	queue.add(order1);
 
-	EXPECT_EQ(order1.getName(), queue.HighestPriorityOrder().getName());
+	EXPECT_EQ(order1.getName(), queue.highestPriorityOrder().getName());
 }
 
 TEST(QueuePriority, GetHighestPriorityOfOneOrderTime) {
@@ -88,9 +88,9 @@ TEST(QueuePriority, GetHighestPriorityOfOneOrderTime) {
 	
 	BuyOrder order1("order 1", 100, 35.0, 1);
 	
-	queue.addOrderToQueue(order1);
+	queue.add(order1);
 
-	EXPECT_EQ(order1.getName(), queue.HighestPriorityOrder().getName());
+	EXPECT_EQ(order1.getName(), queue.highestPriorityOrder().getName());
 }
 
 TEST(QueuePriority, GetHighestPriorityOfTwoPrices) {
@@ -99,10 +99,10 @@ TEST(QueuePriority, GetHighestPriorityOfTwoPrices) {
 	BuyOrder order1("order 1", 100, 35.0, 2);
 	BuyOrder order2("order 2", 100, 37.0, 1);
 
-	queue.addOrderToQueue(order1);
-	queue.addOrderToQueue(order2);
+	queue.add(order1);
+	queue.add(order2);
 
-	EXPECT_EQ(order2.getName(), queue.HighestPriorityOrder().getName());
+	EXPECT_EQ(order2.getName(), queue.highestPriorityOrder().getName());
 }
 
 TEST(QueuePriority, GetHighestPriorityOfTwoOrderTimes) {
@@ -111,10 +111,10 @@ TEST(QueuePriority, GetHighestPriorityOfTwoOrderTimes) {
 	BuyOrder order1("order 1", 100, 35.0, 2);
 	BuyOrder order2("order 2", 100, 37.0, 1);
 
-	queue.addOrderToQueue(order1);
-	queue.addOrderToQueue(order2);
+	queue.add(order1);
+	queue.add(order2);
 
-	EXPECT_EQ(order2.getName(), queue.HighestPriorityOrder().getName());
+	EXPECT_EQ(order2.getName(), queue.highestPriorityOrder().getName());
 }
 
 
@@ -122,8 +122,8 @@ TEST(QueuePriority, RemovePriorityOrderFromQueue) {
 	PriorityQueue queue;
 	BuyOrder order1("order 1", 100, 35.0, 2);
 	BuyOrder order2("order 2", 100, 37.0, 1);
-	queue.addOrderToQueue(order1);
-	queue.addOrderToQueue(order2);
+	queue.add(order1);
+	queue.add(order2);
 	queue.removeHighestPriorityOrder();
 	EXPECT_EQ("EmptyOrder", queue.getOrderFromIndex(1).getName());
 }

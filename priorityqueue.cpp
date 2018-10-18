@@ -26,17 +26,17 @@ PriorityQueue::~PriorityQueue() {
 	delete[] m_buyOrderQueue;
 }
 
-void PriorityQueue::addOrderToQueue(BuyOrder newOrder) {
+void PriorityQueue::add(BuyOrder newOrder) {
 	m_buyOrderQueue[m_arrayCurCapacity] = newOrder;
 	m_arrayCurCapacity++;
 	
 	if(m_arrayCurCapacity >= m_arrayMaxCapacity)
 	{
-		Resize();
+		resize();
 	}
 }
 
-void PriorityQueue::Resize() {
+void PriorityQueue::resize() {
 	m_arrayMaxCapacity += 15;
 	BuyOrder* newQueue = new BuyOrder[m_arrayMaxCapacity];
 	std::copy(m_buyOrderQueue, m_buyOrderQueue + std::min(m_arrayMaxCapacity - 15, m_arrayMaxCapacity), newQueue);
@@ -44,7 +44,7 @@ void PriorityQueue::Resize() {
 	m_buyOrderQueue = newQueue;
 }
 
-BuyOrder PriorityQueue::HighestPriorityOrder() {
+BuyOrder PriorityQueue::highestPriorityOrder() {
 	BuyOrder highestOrder;	
 	highestOrder = m_buyOrderQueue[0];
 	
@@ -69,7 +69,7 @@ void PriorityQueue::removeHighestPriorityOrder() {
 	BuyOrder emptyOrder;
 	emptyOrder.setName("EmptyOrder");
 	
-	orderToRemove = HighestPriorityOrder();
+	orderToRemove = highestPriorityOrder();
 	
 	for(int i = 0; i < m_arrayCurCapacity; i++) {
 		

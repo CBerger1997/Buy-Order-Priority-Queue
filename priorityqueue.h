@@ -10,7 +10,7 @@ class PriorityQueue {
 		int m_arrayCurCapacity;
 		int m_arrayMaxCapacity;		
 		std::string m_ticker;
-		void Resize();
+		void resize();
 
 		
 	public:
@@ -35,10 +35,10 @@ class PriorityQueue {
 		
 		//returns the highest priority order in the queue
 		//The highest priority order contains the highest price and/or shortest time
-		BuyOrder HighestPriorityOrder();	
+		BuyOrder highestPriorityOrder();	
 
 		//adds the specified 'order' to the priority queue 
-		void addOrderToQueue(BuyOrder newOrder);
+		void add(BuyOrder newOrder);
 		
 		//removes the highest priority order from the queue
 		//The highest priority order contains the highest price and/or shortest time

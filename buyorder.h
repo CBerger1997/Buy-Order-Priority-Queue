@@ -11,7 +11,7 @@ class BuyOrder{
 		int m_volume;
 		double m_price;
 		long m_orderTime;
-		
+	
 	public:
 		//default constructor which defines an order name as "EmptyOrder" 
 		//and initialises all other variables to 0
@@ -110,12 +110,7 @@ inline std::string BuyOrder::print(BuyOrder buyorder) {
 }
 
 inline bool BuyOrder::operator<(const BuyOrder& rhs) {
-	if(m_price < rhs.m_price) {
-		return true;
-	}
-	else {
-		return false;
-	}
+	return m_price < rhs.m_price;
 }
 
 inline BuyOrder BuyOrder::operator=(const BuyOrder& rhs) {
