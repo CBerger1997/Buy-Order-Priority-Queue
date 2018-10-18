@@ -29,12 +29,6 @@ TEST(Constructor, NegativeInput) {
 
 TEST(ObjectOutput, ObjectStream) {
 	BuyOrder b1 ("order 1", 100, 32.56, 123456789);
-	
-	std::stringstream ss;
-	ss << b1.getName() << " | ";
-	ss << b1.getVolume() << " | ";
-	ss << b1.getPrice() << " | ";
-	ss << b1.getOrderTime();
 			
-	EXPECT_EQ("order 1 | 100 | 32.56 | 123456789", ss.str());
+	EXPECT_EQ("order 1 | 100 | 32.56 | 123456789", b1.print(b1));
 }

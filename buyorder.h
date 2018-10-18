@@ -80,7 +80,7 @@ inline void BuyOrder::setOrderTime(long orderTime) {
 	m_orderTime = orderTime;
 }
 
-inline std::string print(BuyOrder buyorder) {
+inline std::string BuyOrder::print(BuyOrder buyorder) {
 	std::stringstream ss;
 	ss << buyorder.getName() << " | ";
 	ss << buyorder.getVolume() << " | ";
