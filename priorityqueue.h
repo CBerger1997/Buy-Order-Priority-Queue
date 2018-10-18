@@ -7,8 +7,8 @@
 class PriorityQueue {
 	private:
 		BuyOrder *m_buyOrderQueue;
-		int m_arrayCurCapacity;
-		int m_arrayMaxCapacity;		
+		int m_nextAvailableIndex;
+		int m_maxIndex;		
 		std::string m_ticker;
 		void resize();
 
@@ -75,7 +75,7 @@ inline std::ostream& operator<<(std::ostream& os, PriorityQueue priorityqueue) {
 }
 
 inline int PriorityQueue::length() {
-	return m_arrayCurCapacity;
+	return m_nextAvailableIndex;
 }
 
 inline void PriorityQueue::print() {
