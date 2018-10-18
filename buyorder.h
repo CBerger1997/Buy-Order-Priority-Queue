@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 
 class BuyOrder{
 	private:
@@ -41,6 +42,10 @@ class BuyOrder{
 		
 		//sets the order time of the order
 		void setOrderTime(long orderTime);
+		
+		//prints the BuyOrder passed through the parameters
+		std::string print(BuyOrder buyorder);
+
 };
 
 inline std::string BuyOrder::getName() const {
@@ -73,5 +78,15 @@ inline long BuyOrder::getOrderTime() const {
 
 inline void BuyOrder::setOrderTime(long orderTime) {
 	m_orderTime = orderTime;
+}
+
+inline std::string print(BuyOrder buyorder) {
+	std::stringstream ss;
+	ss << buyorder.getName() << " | ";
+	ss << buyorder.getVolume() << " | ";
+	ss << buyorder.getPrice() << " | ";
+	ss << buyorder.getOrderTime();
+		
+	return ss.str();
 }
 #endif

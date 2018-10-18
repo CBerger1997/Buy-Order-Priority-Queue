@@ -1,5 +1,7 @@
 #include <buyorder.h>
 #include <gtest/gtest.h>
+#include <iostream>
+#include <sstream>
 
 TEST(Constructor, ValidInput) {
 	BuyOrder b1 ("order 1", 100, 32.56, 123456789);
@@ -23,4 +25,16 @@ TEST(Constructor, NegativeInput) {
 	EXPECT_EQ(-100, b1.getVolume());
 	EXPECT_EQ(-32.56, b1.getPrice());
 	EXPECT_EQ(-123456789, b1.getOrderTime());
+}
+
+TEST(ObjectOutput, ObjectStream) {
+	BuyOrder b1 ("order 1", 100, 32.56, 123456789);
+	
+	std::stringstream ss;
+	ss << b1.getName() << " | ";
+	ss << b1.getVolume() << " | ";
+	ss << b1.getPrice() << " | ";
+	ss << b1.getOrderTime();
+			
+	EXPECT_EQ("order 1 | 100 | 32.56 | 123456789", ss.str());
 }
