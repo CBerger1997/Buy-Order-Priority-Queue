@@ -12,7 +12,7 @@ PriorityQueue::PriorityQueue() {
 	m_buyOrderQueue[0] = emptyOrder;
 }
 
-PriorityQueue::PriorityQueue(std::string ticker) {
+PriorityQueue::PriorityQueue(std::string ticker) : m_ticker(ticker) {
 	m_arrayCurCapacity = 0;
 	m_arrayMaxCapacity = 15;
 	
@@ -20,8 +20,6 @@ PriorityQueue::PriorityQueue(std::string ticker) {
 	BuyOrder emptyOrder;
 	emptyOrder.setName("EMPTYORDER");
 	m_buyOrderQueue[0] = emptyOrder;
-	
-	m_ticker = ticker;
 }
 
 PriorityQueue::~PriorityQueue() {
