@@ -45,7 +45,10 @@ class BuyOrder{
 		
 		//prints the BuyOrder passed through the parameters
 		std::string print(BuyOrder buyorder);
-
+		
+		bool operator<(const BuyOrder& rhs);
+		
+		BuyOrder operator=(const BuyOrder& rhs);
 };
 
 inline std::string BuyOrder::getName() const {
@@ -88,5 +91,23 @@ inline std::string BuyOrder::print(BuyOrder buyorder) {
 	ss << buyorder.getOrderTime();
 		
 	return ss.str();
+}
+
+inline bool BuyOrder::operator<(const BuyOrder& rhs) {
+	if(m_price < rhs.m_price) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+inline BuyOrder BuyOrder::operator=(const BuyOrder& rhs) {
+	m_name = rhs.m_name;
+	m_volume = rhs.m_volume;
+	m_price = rhs.m_price;
+	m_orderTime = rhs.m_orderTime;
+	
+	return *this;
 }
 #endif
