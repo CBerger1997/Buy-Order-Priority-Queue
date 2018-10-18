@@ -24,19 +24,3 @@ TEST(Constructor, NegativeInput) {
 	EXPECT_EQ(-32.56, b1.getPrice());
 	EXPECT_EQ(-123456789, b1.getOrderTime());
 }
-
-TEST(NameConstructor, ValidInput) {
-	BuyOrder b1 ("order 1");
-	EXPECT_EQ("order 1", b1.getName());
-	EXPECT_EQ(0, b1.getVolume());
-	EXPECT_EQ(0.0, b1.getPrice());
-	EXPECT_EQ(0, b1.getOrderTime());
-}
-
-TEST(NameConstructor, ZeroInput) {
-	BuyOrder b1 ("");
-	EXPECT_EQ("", b1.getName());
-	EXPECT_EQ(0, b1.getVolume());
-	EXPECT_EQ(0.0, b1.getPrice());
-	EXPECT_EQ(0, b1.getOrderTime());
-}

@@ -9,40 +9,69 @@ class BuyOrder{
 		std::string m_name;
 		int m_volume;
 		double m_price;
-		int m_orderTime;
+		long m_orderTime;
 		
 	public:
 		BuyOrder();
 		
-		BuyOrder(const std::string& name, int volume, double price, int orderTime);
-		
-		BuyOrder(const std::string& name);
-		
+		BuyOrder(const std::string& name, int volume, double price, long orderTime);
+				
 		~BuyOrder();
 		
 		//returns the name of the order
-		inline std::string getName() const {return m_name;} 
+		std::string getName() const;  
 		
 		//sets the name of the order
-		inline void setName(const std::string& name) {m_name = name;}
+		void setName(const std::string& name);
 		
 		//returns the volume of the order
-		inline int getVolume() const {return m_volume;}
+		int getVolume() const;
 		
 		//sets the volume of the order
-		inline void setVolume(int volume) {m_volume = volume;}
+		void setVolume(int volume);
 		
 		//returns the price of the order
-		inline double getPrice() const {return m_price;}
+		double getPrice() const;
 		
 		//sets the price of the order
-		inline void setPrice(double price) {m_price = price;}
+		void setPrice(double price);
 		
 		//returns the order time of the order
-		inline int getOrderTime() const {return m_orderTime;}
+		long getOrderTime() const;
 		
 		//sets the order time of the order
-		inline void setOrderTime(int orderTime) {m_orderTime = orderTime;}
+		void setOrderTime(long orderTime);
 };
 
+inline std::string BuyOrder::getName() const {
+	return m_name;
+}
+
+inline void BuyOrder::setName(const std::string& name) {
+	m_name = name;
+}
+
+inline int BuyOrder::getVolume() const {
+	return m_volume;
+}
+
+inline void BuyOrder::setVolume(int volume) {
+	m_volume = volume;
+}
+
+inline double BuyOrder::getPrice() const {
+	return m_price;
+}
+
+inline void BuyOrder::setPrice(double price) {
+	m_price = price;
+}
+
+inline long BuyOrder::getOrderTime() const {
+	return m_orderTime;
+}
+
+inline void BuyOrder::setOrderTime(long orderTime) {
+	m_orderTime = orderTime;
+}
 #endif
