@@ -49,6 +49,10 @@ class BuyOrder{
 		bool operator<(const BuyOrder& rhs);
 		
 		BuyOrder operator=(const BuyOrder& rhs);
+		
+		bool operator==(const BuyOrder& rhs);
+		
+		friend std::ostream& operator<<(std::ostream &os, const BuyOrder &buyorder);
 };
 
 inline std::string BuyOrder::getName() const {
@@ -110,4 +114,17 @@ inline BuyOrder BuyOrder::operator=(const BuyOrder& rhs) {
 	
 	return *this;
 }
+
+inline bool BuyOrder::operator==(const BuyOrder& rhs) {
+	if (m_name == rhs.m_name &&	m_volume == rhs.m_volume && m_price == rhs.m_price && m_orderTime == rhs.m_orderTime) {
+		return true;
+	}
+	return false;
+}
+
+inline std::ostream& operator<<(std::ostream &os, const BuyOrder &buyorder) {
+	os << buyorder.m_name << " | " << buyorder.m_volume << " | " << buyorder.m_price << " | " << buyorder.m_orderTime;
+	return os;
+}
+
 #endif

@@ -6,6 +6,9 @@ PriorityQueue::PriorityQueue() {
 	m_arrayMaxCapacity = 15;
 	
 	m_buyOrderQueue = new BuyOrder[m_arrayMaxCapacity];
+	BuyOrder emptyOrder;
+	emptyOrder.setName("EMPTYORDER");
+	m_buyOrderQueue[0] = emptyOrder;
 }
 
 PriorityQueue::~PriorityQueue() {
@@ -18,11 +21,11 @@ void PriorityQueue::addOrderToQueue(BuyOrder newOrder) {
 	
 	if(m_arrayCurCapacity >= m_arrayMaxCapacity)
 	{
-		createNewPriorityQueue();
+		Resize();
 	}
 }
 
-void PriorityQueue::createNewPriorityQueue() {
+void PriorityQueue::Resize() {
 	m_arrayMaxCapacity += 15;
 	BuyOrder* newQueue = new BuyOrder[m_arrayMaxCapacity];
 	std::copy(m_buyOrderQueue, m_buyOrderQueue + std::min(m_arrayMaxCapacity - 15, m_arrayMaxCapacity), newQueue);
@@ -30,24 +33,37 @@ void PriorityQueue::createNewPriorityQueue() {
 	m_buyOrderQueue = newQueue;
 }
 
-BuyOrder PriorityQueue::getHighestPriorityOrder() {
+BuyOrder PriorityQueue::HighestPriorityOrder() {
 	BuyOrder highestOrder;	
 	highestOrder = m_buyOrderQueue[0];
-		
-	for(int i = 1; i < m_arrayCurCapacity; i++) {
-		if(highestOrder.getPrice() == m_buyOrderQueue[i].getPrice()) {
-			if(highestOrder.getOrderTime() > m_buyOrderQueue[i].getOrderTime()) {
+	
+	if(m_arrayCurCapacity > 0) {
+		for(int i = 1; i < m_arrayCurCapacity; i++) {
+			if(highestOrder.getPrice() == m_buyOrderQueue[i].getPrice()) {
+				if(highestOrder.getOrderTime() > m_buyOrderQueue[i].getOrderTime()) {
+					highestOrder = m_buyOrderQueue[i];
+				}
+			}
+			else if(highestOrder < m_buyOrderQueue[i]) {
 				highestOrder = m_buyOrderQueue[i];
 			}
-		}
-		else if(highestOrder < m_buyOrderQueue[i]) {
-			highestOrder = m_buyOrderQueue[i];
 		}
 	}
 	
 	return highestOrder;
 }
 
-void removeHighestPriorityOrder() {
+void PriorityQueue::removeHighestPriorityOrder() {
+	BuyOrder orderToRemove;
+	BuyOrder emptyOrder;
+	emptyOrder.setName("EmptyOrder");
 	
+	orderToRemove = HighestPriorityOrder();
+	
+	for(int i = 0; i < m_arrayCurCapacity; i++) {
+		
+		if(m_buyOrderQueue[i] == orderToRemove) {
+			m_buyOrderQueue[i] = emptyOrder;
+		}
+	}
 }
