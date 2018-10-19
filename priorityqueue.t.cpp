@@ -29,7 +29,7 @@ TEST(QueueConstructor, CopyConstructor) {
 
 //----------------------------------------------------------------------------------------
 
-TEST(QueueManipulation, EmptyQueue) {
+TEST(QueueManipulation, CHeckingEmptyQueue) {
 	PriorityQueue queue;
 	
 	EXPECT_EQ("EMPTYORDER", queue.getOrderFromIndex(0).getName());
@@ -61,7 +61,7 @@ TEST(QueueManipulation, AddingMultipleToQueue) {
 	}
 }
 
-TEST(QueueManipulation, CreatingNewArray) {
+TEST(QueueManipulation, CreatingNewQueueArray) {
 	PriorityQueue queue;
 	BuyOrder order("order 1", 100, 32.6, 123456789);
 	
@@ -78,7 +78,7 @@ TEST(QueueManipulation, CreatingNewArray) {
 	}
 }
 
-TEST(QueueManipulation, CreatingMultipleNewArrays) {
+TEST(QueueManipulation, CreatingMultipleNewQueueArrays) {
 	PriorityQueue queue;
 	
 	for(int i = 0; i < 200; i++) {
@@ -93,13 +93,11 @@ TEST(QueueManipulation, CreatingMultipleNewArrays) {
 		ss << i + 1<< " order\n";
 		EXPECT_EQ(ss.str(), queue.getOrderFromIndex(i).getName());
 	}
-	
-	//queue.print();
 }
 
 //----------------------------------------------------------------------------------------
 
-TEST(QueuePriority, GetHighestPriorityOfOnePrice) {
+TEST(QueuePriority, GetHighestPriorityByPriceOfOneOrderInQueue) {
 	PriorityQueue queue;
 	
 	BuyOrder order1("order 1", 100, 35.0, 1);
