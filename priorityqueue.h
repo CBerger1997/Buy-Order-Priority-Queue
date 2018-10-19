@@ -23,6 +23,7 @@ class PriorityQueue {
 		//the current PriorityQueue object
 		PriorityQueue(PriorityQueue& priorityqueue);
 		
+		//custom constructor to define a ticker for a queue
 		PriorityQueue(std::string ticker);
 		
 		//default constructor provided by the compiler
