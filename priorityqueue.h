@@ -19,6 +19,10 @@ class PriorityQueue {
 		//and initialises all other variables to 0
 		PriorityQueue();
 		
+		//copy constructor which assigns the membar variables of a specified 'priorityqueue' to
+		//the current PriorityQueue object
+		PriorityQueue(PriorityQueue& priorityqueue);
+		
 		PriorityQueue(std::string ticker);
 		
 		//default constructor provided by the compiler

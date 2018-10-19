@@ -4,18 +4,28 @@
 PriorityQueue::PriorityQueue() {
 	m_nextAvailableIndex = 0;
 	m_maxIndex = 15;
-	m_ticker = "";
-	
+	m_ticker = "";	
 	m_buyOrderQueue = new BuyOrder[m_maxIndex];
 	BuyOrder emptyOrder;
 	emptyOrder.setName("EMPTYORDER");
 	m_buyOrderQueue[0] = emptyOrder;
 }
 
+PriorityQueue::PriorityQueue(PriorityQueue& priorityqueue) {
+	m_nextAvailableIndex = priorityqueue.m_nextAvailableIndex;
+	m_maxIndex = priorityqueue.m_maxIndex;
+	m_ticker = priorityqueue.m_ticker;
+	m_buyOrderQueue = new BuyOrder[m_maxIndex];
+	
+	for(int i = 0; i < priorityqueue.m_maxIndex; i++) {
+		m_buyOrderQueue[i] = priorityqueue.m_buyOrderQueue[i];
+	}
+}
+
+
 PriorityQueue::PriorityQueue(std::string ticker) : m_ticker(ticker) {
 	m_nextAvailableIndex = 0;
-	m_maxIndex = 15;
-	
+	m_maxIndex = 15;	
 	m_buyOrderQueue = new BuyOrder[m_maxIndex];
 	BuyOrder emptyOrder;
 	emptyOrder.setName("EMPTYORDER");

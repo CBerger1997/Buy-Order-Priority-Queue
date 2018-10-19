@@ -11,6 +11,22 @@ TEST(QueueConstructor, TickerConstructor) {
 	EXPECT_EQ("VOD.L", queue.getTicker());
 }
 
+TEST(QueueConstructor, CopyConstructor) {
+	PriorityQueue queue1("VOD.L");
+	BuyOrder order("order 1", 100, 32.6, 123456789);
+	queue1.add(order);
+	PriorityQueue queue2(queue1);
+	
+	EXPECT_EQ(queue1.getTicker(), queue2.getTicker());
+	EXPECT_EQ(queue1.length(), queue2.length());
+	for(int i = 0; i < queue1.length(); i++) {
+		EXPECT_EQ(queue1.getOrderFromIndex(i).getName(), queue2.getOrderFromIndex(i).getName());
+		EXPECT_EQ(queue1.getOrderFromIndex(i).getVolume(), queue2.getOrderFromIndex(i).getVolume());
+		EXPECT_EQ(queue1.getOrderFromIndex(i).getPrice(), queue2.getOrderFromIndex(i).getPrice());
+		EXPECT_EQ(queue1.getOrderFromIndex(i).getOrderTime(), queue2.getOrderFromIndex(i).getOrderTime());	
+	}
+}
+
 //----------------------------------------------------------------------------------------
 
 TEST(QueueManipulation, EmptyQueue) {
@@ -24,6 +40,9 @@ TEST(QueueManipulation, AddingToQueue) {
 	BuyOrder order("order 1", 100, 32.6, 123456789);
 	queue.add(order);
 	EXPECT_EQ(order.getName(), queue.getOrderFromIndex(0).getName());
+	EXPECT_EQ(order.getVolume(), queue.getOrderFromIndex(0).getVolume());
+	EXPECT_EQ(order.getPrice(), queue.getOrderFromIndex(0).getPrice());
+	EXPECT_EQ(order.getOrderTime(), queue.getOrderFromIndex(0).getOrderTime());
 }
 
 TEST(QueueManipulation, AddingMultipleToQueue) {
@@ -36,6 +55,9 @@ TEST(QueueManipulation, AddingMultipleToQueue) {
 	
 	for(int i = 0; i < 5; i++) {
 		EXPECT_EQ(order.getName(), queue.getOrderFromIndex(i).getName());
+		EXPECT_EQ(order.getVolume(), queue.getOrderFromIndex(i).getVolume());
+		EXPECT_EQ(order.getPrice(), queue.getOrderFromIndex(i).getPrice());
+		EXPECT_EQ(order.getOrderTime(), queue.getOrderFromIndex(i).getOrderTime());
 	}
 }
 
@@ -49,6 +71,10 @@ TEST(QueueManipulation, CreatingNewArray) {
 	
 	for(int i = 0; i < 20; i++) {
 		EXPECT_EQ(order.getName(), queue.getOrderFromIndex(i).getName());
+		EXPECT_EQ(order.getVolume(), queue.getOrderFromIndex(i).getVolume());
+		EXPECT_EQ(order.getPrice(), queue.getOrderFromIndex(i).getPrice());
+		EXPECT_EQ(order.getOrderTime(), queue.getOrderFromIndex(i).getOrderTime());
+
 	}
 }
 
