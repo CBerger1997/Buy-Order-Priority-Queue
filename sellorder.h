@@ -13,65 +13,60 @@ class SellOrder{
 		long m_orderTime;
 	
 	public:
-		//default constructor which defines an order name as "EmptyOrder" 
-		//and initialises all other variables to 0
+		// Constructs a SellOrder object
 		SellOrder();
 		
-		//copy constructor which assigns the membar variables of a specified 'sellorder' to
-		//the current SellOrder object
+		// Constructs a SellOrder object and sets memeber values equalt to the specified 'sellorder'
 		SellOrder(SellOrder& sellorder);
 		
-		//customised constructor which defines an order based upon 
-		//the specified variables passed through the parameters
+		// Constructs a SellOrder based upon the specified variables passed through the parameters
 		SellOrder(const std::string& name, int volume, double price, long orderTime);
 			
-		//default constructor provided by the compiler
+		// Default constructor provided by the compiler
 		~SellOrder();
 		
-		//returns the name of the order
+		// Returns the name of the order
 		std::string getName() const;  
 		
-		//sets the name of the order
+		// Sets the name of the order
 		void setName(const std::string& name);
 		
-		//returns the volume of the order
+		// Returns the volume of the order
 		int getVolume() const;
 		
-		//sets the volume of the order
+		// Sets the volume of the order
 		void setVolume(int volume);
 		
-		//returns the price of the order
+		// Returns the price of the order
 		double getPrice() const;
 		
-		//sets the price of the order
+		// Sets the price of the order
 		void setPrice(double price);
 		
-		//returns the order time of the order
+		// Returns the order time of the order
 		long getOrderTime() const;
 		
-		//sets the order time of the order
+		// Sets the order time of the order
 		void setOrderTime(long orderTime);
 		
-		//prints the SellOrder passed through the parameters
+		// Prints the SellOrder passed through the parameters
 		std::string print(SellOrder sellorder);
 		
-		//operator comparing the price of two orders and returns true if the current object 
-		//sell order price is greater than the specified 'rhs' price
-		bool operator>(const SellOrder& rhs);
-		
-		//operator comparing the price of two orders and returns true if the current object 
-		//sell order price is less than the specified 'rhs' price
+		// Operator comparing the price of two orders and returns true if the current object 
+		// Sell order price is greater than the specified 'rhs' price
+		// Or if the prices are equal then returns true if the order time of this object is
+		// Less than that of the specified 'rhs' otherwise returns false
 		bool operator<(const SellOrder& rhs);
 
-		//assignment operator setting the member variables of the current object 
-		//to the member variables of the specified 'rhs' member variables
+		// Assignment operator setting the member variables of the current object 
+		// To the member variables of the specified 'rhs' member variables
 		SellOrder operator=(const SellOrder& rhs);
 		
-		//operator which returns true if the current object 
-		//and specified 'rhs' have the same member variables
+		// Operator which returns true if the current object 
+		// And specified 'rhs' have the same member variables
 		bool operator==(const SellOrder& rhs);
 		
-		//operator overloading for the output stream
+		// Operator overloading for the output stream
 		friend std::ostream& operator<<(std::ostream &os, const SellOrder &sellorder);
 };
 
@@ -117,12 +112,21 @@ inline std::string SellOrder::print(SellOrder sellorder) {
 	return ss.str();
 }
 
-inline bool SellOrder::operator>(const SellOrder& rhs) {
-	return m_price > rhs.m_price;
-}
-
 inline bool SellOrder::operator<(const SellOrder& rhs) {
-	return m_price < rhs.m_price;
+	if (m_price == rhs.m_price) {
+		if (m_orderTime > rhs.m_orderTime) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else if (m_price > rhs.m_price) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 
