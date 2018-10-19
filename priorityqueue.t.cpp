@@ -243,6 +243,34 @@ TEST(QueuePriorityBuyOrder, GetHighestPriorityOfTwoOrderTimes) {
 	EXPECT_EQ(order2.getName(), queue.highestPriorityData().getName());
 }
 
+TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreePrices) {
+	PriorityQueue<BuyOrder> queue;
+	
+	BuyOrder order1("order 1", 100, 35.0, 2);
+	BuyOrder order2("order 2", 100, 37.0, 1);
+	BuyOrder order3("order 3", 100, 38.0, 3);
+
+	queue.add(order1);
+	queue.add(order2);
+	queue.add(order3);
+
+	EXPECT_EQ(order3.getName(), queue.highestPriorityData().getName());
+}
+
+TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrderTimes) {
+	PriorityQueue<BuyOrder> queue;
+	
+	BuyOrder order1("order 1", 100, 35.0, 3);
+	BuyOrder order2("order 2", 100, 38.0, 2);
+	BuyOrder order3("order 3", 100, 38.0, 1);
+
+	queue.add(order1);
+	queue.add(order2);
+	queue.add(order3);
+
+	EXPECT_EQ(order3.getName(), queue.highestPriorityData().getName());
+}
+
 TEST(QueuePriorityBuyOrder, RemovePriorityOrderFromQueue) {
 	PriorityQueue<BuyOrder> queue;
 	BuyOrder order1("order 1", 100, 35.0, 2);
@@ -298,6 +326,34 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfTwoOrderTimes) {
 	queue.add(order2);
 
 	EXPECT_EQ(order2.getName(), queue.highestPriorityData().getName());
+}
+
+TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreePrices) {
+	PriorityQueue<SellOrder> queue;
+	
+	SellOrder order1("order 1", 100, 38.0, 2);
+	SellOrder order2("order 2", 100, 37.0, 1);
+	SellOrder order3("order 3", 100, 35.0, 3);
+
+	queue.add(order1);
+	queue.add(order2);
+	queue.add(order3);
+
+	EXPECT_EQ(order3.getName(), queue.highestPriorityData().getName());
+}
+
+TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrderTimes) {
+	PriorityQueue<SellOrder> queue;
+	
+	SellOrder order1("order 1", 100, 35.0, 3);
+	SellOrder order2("order 2", 100, 38.0, 2);
+	SellOrder order3("order 3", 100, 35.0, 1);
+
+	queue.add(order1);
+	queue.add(order2);
+	queue.add(order3);
+
+	EXPECT_EQ(order3.getName(), queue.highestPriorityData().getName());
 }
 
 TEST(QueuePrioritySellOrder, RemovePriorityOrderFromQueue) {
