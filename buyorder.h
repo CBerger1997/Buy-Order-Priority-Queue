@@ -17,6 +17,10 @@ class BuyOrder{
 		//and initialises all other variables to 0
 		BuyOrder();
 		
+		//copy constructor which assigns the membar variables of a specified 'buyorder' to
+		//the current BuyOrder object
+		BuyOrder(BuyOrder& buyorder);
+		
 		//customised constructor which defines an order based upon 
 		//the specified variables passed through the parameters
 		BuyOrder(const std::string& name, int volume, double price, long orderTime);
