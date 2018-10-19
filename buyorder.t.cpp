@@ -36,6 +36,33 @@ TEST(Constructor, CopyConstructor) {
 	EXPECT_EQ(b1.getOrderTime(),b2.getOrderTime());
 }
 
+TEST(CopyConstructor, ValidInput) {
+	BuyOrder b1 ("order 1", 100, 32.56, 123456789);
+	BuyOrder b2(b1);
+	EXPECT_EQ("order 1", b2.getName());
+	EXPECT_EQ(100, b2.getVolume());
+	EXPECT_EQ(32.56, b2.getPrice());
+	EXPECT_EQ(123456789, b2.getOrderTime());
+}
+
+TEST(CopyConstructor, ZeroInput) {
+	BuyOrder b1 ("", 0, 0.0, 0);
+	BuyOrder b2(b1);
+	EXPECT_EQ("", b2.getName());
+	EXPECT_EQ(0, b2.getVolume());
+	EXPECT_EQ(0.0, b2.getPrice());
+	EXPECT_EQ(0, b2.getOrderTime());
+}
+
+TEST(CopyConstructor, NegativeInput) {
+	BuyOrder b1 ("", -100, -32.56, -123456789);
+	BuyOrder b2(b1);
+	EXPECT_EQ("", b2.getName());
+	EXPECT_EQ(-100, b2.getVolume());
+	EXPECT_EQ(-32.56, b2.getPrice());
+	EXPECT_EQ(-123456789, b2.getOrderTime());
+}
+
 //----------------------------------------------------------------------------------------
 
 TEST(ObjectOutput, ObjectStream) {
