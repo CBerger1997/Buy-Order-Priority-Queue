@@ -42,7 +42,8 @@ class PriorityQueue {
 		//The highest priority order contains the highest price and/or shortest time
 		BuyOrder highestPriorityOrder();	
 
-		//adds the specified 'order' to the priority queue 
+		//adds the specified 'order' to the priority queue
+		//the queue will automatically resize when required
 		void add(BuyOrder newOrder);
 		
 		//removes the highest priority order from the queue

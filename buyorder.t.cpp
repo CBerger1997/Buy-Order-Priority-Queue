@@ -36,6 +36,8 @@ TEST(Constructor, CopyConstructor) {
 	EXPECT_EQ(b1.getOrderTime(),b2.getOrderTime());
 }
 
+//----------------------------------------------------------------------------------------
+
 TEST(ObjectOutput, ObjectStream) {
 	BuyOrder b1 ("order 1", 100, 32.56, 123456789);
 			

@@ -81,10 +81,10 @@ void PriorityQueue::removeHighestPriorityOrder() {
 	
 	orderToRemove = highestPriorityOrder();
 	
-	for(int i = 0; i < m_nextAvailableIndex; i++) {
-		
+	for(int i = 0; i < m_nextAvailableIndex; i++) {		
 		if(m_buyOrderQueue[i] == orderToRemove) {
-			m_buyOrderQueue[i] = emptyOrder;
+			std::copy(m_buyOrderQueue + i + 1, m_buyOrderQueue + m_maxIndex - 1, m_buyOrderQueue + i);
+			return;
 		}
 	}
 }
