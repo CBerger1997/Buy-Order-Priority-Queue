@@ -59,6 +59,11 @@ class BuyOrder{
 		//buy order price is less than the specified 'rhs' price
 		bool operator<(const BuyOrder& rhs);
 		
+		//operator comparing the price of two orders and returns true if the current object 
+		//buy order price is greater than the specified 'rhs' price
+		bool operator>(const BuyOrder& rhs);
+
+		
 		//assignment operator setting the member variables of the current object 
 		//to the member variables of the specified 'rhs' member variables
 		BuyOrder operator=(const BuyOrder& rhs);
@@ -115,6 +120,10 @@ inline std::string BuyOrder::print(BuyOrder buyorder) {
 
 inline bool BuyOrder::operator<(const BuyOrder& rhs) {
 	return m_price < rhs.m_price;
+}
+
+inline bool BuyOrder::operator>(const BuyOrder& rhs) {
+	return m_price > rhs.m_price;
 }
 
 inline BuyOrder BuyOrder::operator=(const BuyOrder& rhs) {

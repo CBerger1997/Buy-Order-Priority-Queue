@@ -2,13 +2,16 @@
 #define __PRIORITYQUEUE__
 
 #include <buyorder.h>
+#include <sellorder.h>
 #include <iostream>
+#include <typeinfo>
 
+template <class T>
 class PriorityQueue {
 	private:
-		BuyOrder *m_buyOrderQueue;
+		T *m_orderPriorityQueue;
 		int m_nextAvailableIndex;
-		int m_maxIndex;		
+		int m_capacity;		
 		std::string m_ticker;
 		void resize();
 
@@ -36,15 +39,15 @@ class PriorityQueue {
 		void setTicker(const std::string& ticker);
 		
 		//returns an order based upon the specified 'index'
-		BuyOrder getOrderFromIndex(int index) const;
+		T getOrderFromIndex(int index) const;
 		
 		//returns the highest priority order in the queue
 		//The highest priority order contains the highest price and/or shortest time
-		BuyOrder highestPriorityOrder();	
+		T highestPriorityOrder();	
 
 		//adds the specified 'order' to the priority queue
 		//the queue will automatically resize when required
-		void add(BuyOrder newOrder);
+		void add(T newOrder);
 		
 		//removes the highest priority order from the queue
 		//The highest priority order contains the highest price and/or shortest time
@@ -54,37 +57,135 @@ class PriorityQueue {
 		int length();
 		
 		//prints the priority queue to the output stream
-		void print();
-		
-		//operator overloading for the output stream
-		friend std::ostream& operator<<(std::ostream& os, PriorityQueue priorityqueue);
-		
+		void print();		
 };
 
-inline BuyOrder PriorityQueue::getOrderFromIndex(int index) const {
-	return m_buyOrderQueue[index];
+template <class T>
+inline T PriorityQueue<T>::getOrderFromIndex(int index) const {
+	return m_orderPriorityQueue[index];
 }
 
-inline std::string PriorityQueue::getTicker() const {
+template <class T>
+inline std::string PriorityQueue<T>::getTicker() const {
 	return m_ticker;
 }
-		
-inline void PriorityQueue::setTicker(const std::string& ticker) {
+
+template <class T>
+inline void PriorityQueue<T>::setTicker(const std::string& ticker) {
 	m_ticker = ticker;
 }
 
-inline std::ostream& operator<<(std::ostream& os, PriorityQueue priorityqueue) {
-	for(int i = 0; i < priorityqueue.length(); i++) {
-		os << priorityqueue.m_buyOrderQueue[i] << '\n';
-	}
-	return os;
-}
-
-inline int PriorityQueue::length() {
+template <class T>
+inline int PriorityQueue<T>::length() {
 	return m_nextAvailableIndex;
 }
 
-inline void PriorityQueue::print() {
-	std::cout << *this;
+template <class T>
+inline void PriorityQueue<T>::print() {
+	std::stringstream ss;
+	
+	for(int i = 0; i < m_capacity; i++) {
+		ss << m_orderPriorityQueue[i] << '\n';
+	}
+	
+	std::cout << ss.str();
+}
+
+template <class T>
+PriorityQueue<T>::PriorityQueue() : m_nextAvailableIndex(0), m_capacity(15), m_ticker("") {
+	m_orderPriorityQueue = new T[m_capacity];
+
+}
+
+template <class T>
+PriorityQueue<T>::PriorityQueue(PriorityQueue& priorityqueue) : m_nextAvailableIndex(priorityqueue.m_nextAvailableIndex), m_capacity(priorityqueue.m_capacity), m_ticker(priorityqueue.m_ticker) {
+	m_orderPriorityQueue = new T[m_capacity];
+	
+	for(int i = 0; i < priorityqueue.m_capacity; i++) {
+		m_orderPriorityQueue[i] = priorityqueue.m_orderPriorityQueue[i];
+	}
+}
+
+
+template <class T>
+PriorityQueue<T>::PriorityQueue(std::string ticker) : m_ticker(ticker) {
+	m_nextAvailableIndex = 0;
+	m_capacity = 15;	
+	m_orderPriorityQueue = new T[m_capacity];
+}
+
+template <class T>
+PriorityQueue<T>::~PriorityQueue() {
+	delete[] m_orderPriorityQueue;
+}
+
+template <class T>
+void PriorityQueue<T>::add(T newOrder) {
+	m_orderPriorityQueue[m_nextAvailableIndex] = newOrder;
+	m_nextAvailableIndex++;
+	
+	if(m_nextAvailableIndex >= m_capacity)
+	{
+		resize();
+	}
+}
+
+template <class T>
+void PriorityQueue<T>::resize() {
+	m_capacity += 15;
+	T* newQueue = new T[m_capacity];
+	std::copy(m_orderPriorityQueue, m_orderPriorityQueue + std::min(m_capacity - 15, m_capacity), newQueue);
+	delete[] m_orderPriorityQueue;
+	m_orderPriorityQueue = newQueue;
+}
+
+template <class T>
+T PriorityQueue<T>::highestPriorityOrder() {
+	T highestOrder;	
+	highestOrder = m_orderPriorityQueue[0];
+	std::stringstream name;
+	name << typeid(m_orderPriorityQueue[0]).name();
+	std::stringstream type;
+	type << name.str().erase(0, 1);
+	
+	if(m_nextAvailableIndex > 0) {
+		for(int i = 1; i < m_nextAvailableIndex; i++) {
+			if(highestOrder.getPrice() == m_orderPriorityQueue[i].getPrice()) {
+				if(highestOrder.getOrderTime() > m_orderPriorityQueue[i].getOrderTime()) {
+					highestOrder = m_orderPriorityQueue[i];
+				}
+			}
+			else {
+				if(type.str() == "SellOrder") {
+					if(highestOrder > m_orderPriorityQueue[i]) {
+						highestOrder = m_orderPriorityQueue[i];
+					}
+				}
+				else {
+					if(highestOrder < m_orderPriorityQueue[i]) {
+						highestOrder = m_orderPriorityQueue[i];
+					}
+				}
+			}
+		}
+	}
+	
+	return highestOrder;
+}
+
+template <class T>
+void PriorityQueue<T>::removeHighestPriorityOrder() {
+	T orderToRemove;
+	T emptyOrder;
+	emptyOrder.setName("EmptyOrder");
+	
+	orderToRemove = highestPriorityOrder();
+	
+	for(int i = 0; i < m_nextAvailableIndex; i++) {		
+		if(m_orderPriorityQueue[i] == orderToRemove) {
+			std::copy(m_orderPriorityQueue + i + 1, m_orderPriorityQueue + m_capacity - 1, m_orderPriorityQueue + i);
+			return;
+		}
+	}
 }
 #endif

@@ -56,9 +56,13 @@ class SellOrder{
 		std::string print(SellOrder sellorder);
 		
 		//operator comparing the price of two orders and returns true if the current object 
-		//buy order price is less than the specified 'rhs' price
-		bool operator<(const SellOrder& rhs);
+		//sell order price is greater than the specified 'rhs' price
+		bool operator>(const SellOrder& rhs);
 		
+		//operator comparing the price of two orders and returns true if the current object 
+		//sell order price is less than the specified 'rhs' price
+		bool operator<(const SellOrder& rhs);
+
 		//assignment operator setting the member variables of the current object 
 		//to the member variables of the specified 'rhs' member variables
 		SellOrder operator=(const SellOrder& rhs);
@@ -113,9 +117,14 @@ inline std::string SellOrder::print(SellOrder sellorder) {
 	return ss.str();
 }
 
+inline bool SellOrder::operator>(const SellOrder& rhs) {
+	return m_price > rhs.m_price;
+}
+
 inline bool SellOrder::operator<(const SellOrder& rhs) {
 	return m_price < rhs.m_price;
 }
+
 
 inline SellOrder SellOrder::operator=(const SellOrder& rhs) {
 	m_name = rhs.m_name;
