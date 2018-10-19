@@ -243,7 +243,35 @@ TEST(QueuePriorityBuyOrder, GetHighestPriorityOfTwoOrderTimes) {
 	EXPECT_EQ(order2.getName(), queue.highestPriorityData().getName());
 }
 
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreePrices) {
+TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreePricesFirstPosition) {
+	PriorityQueue<BuyOrder> queue;
+	
+	BuyOrder order1("order 1", 100, 38.0, 2);
+	BuyOrder order2("order 2", 100, 37.0, 1);
+	BuyOrder order3("order 3", 100, 35.0, 3);
+
+	queue.add(order1);
+	queue.add(order2);
+	queue.add(order3);
+
+	EXPECT_EQ(order1.getName(), queue.highestPriorityData().getName());
+}
+
+TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreePricesSecondPosition) {
+	PriorityQueue<BuyOrder> queue;
+	
+	BuyOrder order1("order 1", 100, 35.0, 2);
+	BuyOrder order2("order 2", 100, 38.0, 1);
+	BuyOrder order3("order 3", 100, 37.0, 3);
+
+	queue.add(order1);
+	queue.add(order2);
+	queue.add(order3);
+
+	EXPECT_EQ(order2.getName(), queue.highestPriorityData().getName());
+}
+
+TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreePricesThirdPosition) {
 	PriorityQueue<BuyOrder> queue;
 	
 	BuyOrder order1("order 1", 100, 35.0, 2);
@@ -328,7 +356,35 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfTwoOrderTimes) {
 	EXPECT_EQ(order2.getName(), queue.highestPriorityData().getName());
 }
 
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreePrices) {
+TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreePricesFirstPosition) {
+	PriorityQueue<SellOrder> queue;
+	
+	SellOrder order1("order 1", 100, 35.0, 2);
+	SellOrder order2("order 2", 100, 37.0, 1);
+	SellOrder order3("order 3", 100, 38.0, 3);
+
+	queue.add(order1);
+	queue.add(order2);
+	queue.add(order3);
+
+	EXPECT_EQ(order1.getName(), queue.highestPriorityData().getName());
+}
+
+TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreePricesSecondPosition) {
+	PriorityQueue<SellOrder> queue;
+	
+	SellOrder order1("order 1", 100, 38.0, 2);
+	SellOrder order2("order 2", 100, 36.0, 1);
+	SellOrder order3("order 3", 100, 37.0, 3);
+
+	queue.add(order1);
+	queue.add(order2);
+	queue.add(order3);
+
+	EXPECT_EQ(order2.getName(), queue.highestPriorityData().getName());
+}
+
+TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreePricesThirdPosition) {
 	PriorityQueue<SellOrder> queue;
 	
 	SellOrder order1("order 1", 100, 38.0, 2);

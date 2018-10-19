@@ -41,7 +41,7 @@ class PriorityQueue {
 		
 		// Returns the highest priority data in the queue
 		// The highest priority data contains the highest price and/or shortest time
-		T highestPriorityData();	
+		T highestPriorityData();
 
 		// Adds the specified 'data' to the priority queue
 		// The queue will automatically resize when required
@@ -141,11 +141,6 @@ template <class T>
 T PriorityQueue<T>::highestPriorityData() {
 	T highestPriorityData;	
 	highestPriorityData = m_PriorityQueue[0];
-	
-	std::stringstream name;
-	name << typeid(m_PriorityQueue[0]).name();
-	std::stringstream type;
-	type << name.str().erase(0, 1);
 	
 	if(m_nextAvailableIndex > 0) {
 		for(int i = 0; i < m_nextAvailableIndex; i++) {
