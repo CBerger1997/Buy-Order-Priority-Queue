@@ -119,19 +119,11 @@ inline bool BuyOrder::operator<(const BuyOrder& rhs) {
 	else if (rhs.getName() == "EmptyOrder") {
 		return false;
 	}	
-	if (m_price == rhs.m_price) {
-		if (m_orderTime > rhs.m_orderTime) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	else if (m_price < rhs.m_price) {
-		return true;
+	else if (m_price == rhs.m_price) {
+		return m_orderTime > rhs.m_orderTime;
 	}
 	else {
-		return false;
+		return m_price < rhs.m_price;
 	}
 }
 

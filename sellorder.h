@@ -120,18 +120,10 @@ inline bool SellOrder::operator<(const SellOrder& rhs) {
 		return false;
 	}
 	else if (m_price == rhs.m_price) {
-		if (m_orderTime > rhs.m_orderTime) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	else if (m_price > rhs.m_price) {
-		return true;
+		return m_orderTime > rhs.m_orderTime;
 	}
 	else {
-		return false;
+		return m_price > rhs.m_price;
 	}
 }
 

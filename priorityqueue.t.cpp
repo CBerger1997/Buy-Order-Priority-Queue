@@ -20,9 +20,7 @@ TEST(QueueConstructorBuyOrder, CopyConstructor) {
 	
 	EXPECT_EQ(queue1.getTicker(), queue2.getTicker());
 	EXPECT_EQ(queue1.length(), queue2.length());
-	for(uint i = 0; i < queue1.length(); i++) {
-		EXPECT_EQ(queue1.highestPriorityItem(), queue2.highestPriorityItem());	
-	}
+	EXPECT_EQ(queue1.highestPriorityItem(), queue2.highestPriorityItem());	
 }
 
 //----------------------------------------------------------------------------------------
@@ -42,9 +40,7 @@ TEST(QueueConstructorSellOrder, CopyConstructor) {
 	
 	EXPECT_EQ(queue1.getTicker(), queue2.getTicker());
 	EXPECT_EQ(queue1.length(), queue2.length());
-	for(uint i = 0; i < queue1.length(); i++) {
-		EXPECT_EQ(queue1.highestPriorityItem(), queue2.highestPriorityItem());
-	}
+	EXPECT_EQ(queue1.highestPriorityItem(), queue2.highestPriorityItem());
 }
 
 //----------------------------------------------------------------------------------------
@@ -61,7 +57,7 @@ TEST(QueueManipulationBuyOrder, AddingToQueue) {
 	PriorityQueue<BuyOrder> queue;
 	BuyOrder order("order 1", 100, 32.6, 1);
 	queue.add(order);
-	EXPECT_EQ(order, queue.highestPriorityItem());
+	EXPECT_EQ(1, queue.length());
 }
 
 TEST(QueueManipulationBuyOrder, AddingMultipleToQueue) {
@@ -73,7 +69,7 @@ TEST(QueueManipulationBuyOrder, AddingMultipleToQueue) {
 	}
 	
 	for(int i = 0; i < 5; i++) {
-		EXPECT_EQ(order, queue.highestPriorityItem());
+		EXPECT_EQ(5, queue.length());
 	}
 }
 
@@ -85,9 +81,7 @@ TEST(QueueManipulationBuyOrder, CreatingNewQueueArray) {
 		queue.add(order);
 	}
 	
-	for(int i = 0; i < 20; i++) {
-		EXPECT_EQ(order, queue.highestPriorityItem());
-	}
+	EXPECT_EQ(20, queue.length());
 }
 
 //----------------------------------------------------------------------------------------
@@ -100,6 +94,13 @@ TEST(QueueManipulationSellOrder, CheckingEmptyQueue) {
 	EXPECT_EQ(true, queue.isEmpty());
 }
 
+TEST(QueueManipulationSellOrder, AddingToQueue) {
+	PriorityQueue<SellOrder> queue;
+	SellOrder order("order 1", 100, 32.6, 1);
+	queue.add(order);
+	EXPECT_EQ(1, queue.length());
+}
+
 TEST(QueueManipulationSellOrder, AddingMultipleToQueue) {
 	PriorityQueue<SellOrder> queue;
 	SellOrder order("order 1", 100, 32.6, 1);
@@ -109,7 +110,7 @@ TEST(QueueManipulationSellOrder, AddingMultipleToQueue) {
 	}
 	
 	for(int i = 0; i < 5; i++) {
-		EXPECT_EQ(order, queue.highestPriorityItem());
+		EXPECT_EQ(5, queue.length());
 	}
 }
 
@@ -121,24 +122,14 @@ TEST(QueueManipulationSellOrder, CreatingNewQueueArray) {
 		queue.add(order);
 	}
 	
-	for(int i = 0; i < 20; i++) {
-		EXPECT_EQ(order, queue.highestPriorityItem());
-
-	}
-}
-
-TEST(QueueManipulationSellOrder, AddingToQueue) {
-	PriorityQueue<SellOrder> queue;
-	SellOrder order("order 1", 100, 32.6, 1);
-	queue.add(order);
-	EXPECT_EQ(order, queue.highestPriorityItem());
+	EXPECT_EQ(20, queue.length());
 }
 
 //----------------------------------------------------------------------------------------
-//-----------------------------QUEUEBUYORDERPRIORITY--------------------------------------
+//-----------------------------QUEUEBUYORDERPRICEPRIORITY--------------------------------------
 //----------------------------------------------------------------------------------------
 
-TEST(QueuePriorityBuyOrder, GetHighestPriorityByPriceOfOneOrderInQueue) {
+TEST(QueueOrderPricePriorityBuyOrder, GetHighestPriorityByPriceOfOneOrderInQueue) {
 	PriorityQueue<BuyOrder> queue;
 	
 	BuyOrder order1("order 1", 100, 35.0, 1);
@@ -148,17 +139,7 @@ TEST(QueuePriorityBuyOrder, GetHighestPriorityByPriceOfOneOrderInQueue) {
 	EXPECT_EQ(order1, queue.highestPriorityItem());
 }
 
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfOneOrderTime) {
-	PriorityQueue<BuyOrder> queue;
-	
-	BuyOrder order1("order 1", 100, 35.0, 1);
-	
-	queue.add(order1);
-
-	EXPECT_EQ(order1, queue.highestPriorityItem());
-}
-
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfTwoOrdersFirstPosition) {
+TEST(QueueOrderPricePriorityBuyOrder, GetHighestPriorityOfTwoOrdersFirstPosition) {
 	PriorityQueue<BuyOrder> queue;
 	
 	BuyOrder order1("order 1", 100, 37.0, 2);
@@ -170,7 +151,7 @@ TEST(QueuePriorityBuyOrder, GetHighestPriorityOfTwoOrdersFirstPosition) {
 	EXPECT_EQ(order1, queue.highestPriorityItem());
 }
 
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfTwoOrdersSecondPosition) {
+TEST(QueueOrderPricePriorityBuyOrder, GetHighestPriorityOfTwoOrdersSecondPosition) {
 	PriorityQueue<BuyOrder> queue;
 	
 	BuyOrder order1("order 1", 100, 35.0, 2);
@@ -182,31 +163,7 @@ TEST(QueuePriorityBuyOrder, GetHighestPriorityOfTwoOrdersSecondPosition) {
 	EXPECT_EQ(order2, queue.highestPriorityItem());
 }
 
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfTwoOrderTimesFirstPosition) {
-	PriorityQueue<BuyOrder> queue;
-	
-	BuyOrder order1("order 1", 100, 35.0, 1);
-	BuyOrder order2("order 2", 100, 35.0, 2);
-
-	queue.add(order1);
-	queue.add(order2);
-
-	EXPECT_EQ(order1, queue.highestPriorityItem());
-}
-
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfTwoOrderTimesSecondPosition) {
-	PriorityQueue<BuyOrder> queue;
-	
-	BuyOrder order1("order 1", 100, 35.0, 2);
-	BuyOrder order2("order 2", 100, 35.0, 1);
-
-	queue.add(order1);
-	queue.add(order2);
-
-	EXPECT_EQ(order2, queue.highestPriorityItem());
-}
-
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrdersFirstPosition) {
+TEST(QueueOrderPricePriorityBuyOrder, GetHighestPriorityOfThreeOrdersFirstPosition) {
 	PriorityQueue<BuyOrder> queue;
 	
 	BuyOrder order1("order 1", 100, 38.0, 2);
@@ -220,7 +177,7 @@ TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrdersFirstPosition) {
 	EXPECT_EQ(order1, queue.highestPriorityItem());
 }
 
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrdersSecondPosition) {
+TEST(QueueOrderPricePriorityBuyOrder, GetHighestPriorityOfThreeOrdersSecondPosition) {
 	PriorityQueue<BuyOrder> queue;
 	
 	BuyOrder order1("order 1", 100, 35.0, 2);
@@ -234,7 +191,7 @@ TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrdersSecondPosition) {
 	EXPECT_EQ(order2, queue.highestPriorityItem());
 }
 
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrdersThirdPosition) {
+TEST(QueueOrderPricePriorityBuyOrder, GetHighestPriorityOfThreeOrdersThirdPosition) {
 	PriorityQueue<BuyOrder> queue;
 	
 	BuyOrder order1("order 1", 100, 35.0, 2);
@@ -248,7 +205,55 @@ TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrdersThirdPosition) {
 	EXPECT_EQ(order3, queue.highestPriorityItem());
 }
 
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrderTimesFirstPosition) {
+TEST(QueueOrderPricePriorityBuyOrder, RemovePriorityOrderFromQueue) {
+	PriorityQueue<BuyOrder> queue;
+	BuyOrder order1("order 1", 100, 35.0, 2);
+	BuyOrder order2("order 2", 100, 37.0, 1);
+	queue.add(order1);
+	queue.add(order2);
+	queue.removeHighestPriorityItem();
+	EXPECT_EQ(order1, queue.highestPriorityItem());
+}
+
+//----------------------------------------------------------------------------------------
+//-----------------------------QUEUEBUYORDERTIMEPRIORITY--------------------------------------
+//----------------------------------------------------------------------------------------
+
+TEST(QueueOrderTimePriorityBuyOrder, GetHighestPriorityOfOneOrderTime) {
+	PriorityQueue<BuyOrder> queue;
+	
+	BuyOrder order1("order 1", 100, 35.0, 1);
+	
+	queue.add(order1);
+
+	EXPECT_EQ(order1, queue.highestPriorityItem());
+}
+
+TEST(QueueOrderTimePriorityBuyOrder, GetHighestPriorityOfTwoOrderTimesFirstPosition) {
+	PriorityQueue<BuyOrder> queue;
+	
+	BuyOrder order1("order 1", 100, 35.0, 1);
+	BuyOrder order2("order 2", 100, 35.0, 2);
+
+	queue.add(order1);
+	queue.add(order2);
+
+	EXPECT_EQ(order1, queue.highestPriorityItem());
+}
+
+TEST(QueueOrderTimePriorityBuyOrder, GetHighestPriorityOfTwoOrderTimesSecondPosition) {
+	PriorityQueue<BuyOrder> queue;
+	
+	BuyOrder order1("order 1", 100, 35.0, 2);
+	BuyOrder order2("order 2", 100, 35.0, 1);
+
+	queue.add(order1);
+	queue.add(order2);
+
+	EXPECT_EQ(order2, queue.highestPriorityItem());
+}
+
+TEST(QueueOrderTimePriorityBuyOrder, GetHighestPriorityOfThreeOrderTimesFirstPosition) {
 	PriorityQueue<BuyOrder> queue;
 	
 	BuyOrder order1("order 1", 100, 35.0, 1);
@@ -262,7 +267,7 @@ TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrderTimesFirstPosition) {
 	EXPECT_EQ(order1, queue.highestPriorityItem());
 }
 
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrderTimesSecondPosition) {
+TEST(QueueOrderTimePriorityBuyOrder, GetHighestPriorityOfThreeOrderTimesSecondPosition) {
 	PriorityQueue<BuyOrder> queue;
 	
 	BuyOrder order1("order 1", 100, 35.0, 3);
@@ -276,7 +281,7 @@ TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrderTimesSecondPosition) {
 	EXPECT_EQ(order2, queue.highestPriorityItem());
 }
 
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrderTimesThirdPosition) {
+TEST(QueueOrderTimePriorityBuyOrder, GetHighestPriorityOfThreeOrderTimesThirdPosition) {
 	PriorityQueue<BuyOrder> queue;
 	
 	BuyOrder order1("order 1", 100, 35.0, 3);
@@ -290,21 +295,11 @@ TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrderTimesThirdPosition) {
 	EXPECT_EQ(order3, queue.highestPriorityItem());
 }
 
-TEST(QueuePriorityBuyOrder, RemovePriorityOrderFromQueue) {
-	PriorityQueue<BuyOrder> queue;
-	BuyOrder order1("order 1", 100, 35.0, 2);
-	BuyOrder order2("order 2", 100, 37.0, 1);
-	queue.add(order1);
-	queue.add(order2);
-	queue.removeHighestPriorityItem();
-	EXPECT_EQ(order1, queue.highestPriorityItem());
-}
-
 //----------------------------------------------------------------------------------------
-//-----------------------------QUEUESELLORDERPRIORITY-------------------------------------
+//-----------------------------QUEUESELLORDERPRICEPRIORITY-------------------------------------
 //----------------------------------------------------------------------------------------
 
-TEST(QueuePrioritySellOrder, GetHighestPriorityByPriceOfOneOrderInQueue) {
+TEST(QueueOrderPricePrioritySellOrder, GetHighestPriorityByPriceOfOneOrderInQueue) {
 	PriorityQueue<SellOrder> queue;
 	
 	SellOrder order1("order 1", 100, 35.0, 1);
@@ -314,17 +309,7 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityByPriceOfOneOrderInQueue) {
 	EXPECT_EQ(order1, queue.highestPriorityItem());
 }
 
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfOneOrderTime) {
-	PriorityQueue<SellOrder> queue;
-	
-	SellOrder order1("order 1", 100, 35.0, 1);
-	
-	queue.add(order1);
-
-	EXPECT_EQ(order1, queue.highestPriorityItem());
-}
-
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfTwoOrdersFirstPosition) {
+TEST(QueueOrderPricePrioritySellOrder, GetHighestPriorityOfTwoOrdersFirstPosition) {
 	PriorityQueue<SellOrder> queue;
 	
 	SellOrder order1("order 1", 100, 35.0, 2);
@@ -336,7 +321,7 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfTwoOrdersFirstPosition) {
 	EXPECT_EQ(order1, queue.highestPriorityItem());
 }
 
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfTwoOrdersSecondPosition) {
+TEST(QueueOrderPricePrioritySellOrder, GetHighestPriorityOfTwoOrdersSecondPosition) {
 	PriorityQueue<SellOrder> queue;
 	
 	SellOrder order1("order 1", 100, 37.0, 2);
@@ -348,31 +333,7 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfTwoOrdersSecondPosition) {
 	EXPECT_EQ(order2, queue.highestPriorityItem());
 }
 
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfTwoOrderTimesFirstPosition) {
-	PriorityQueue<SellOrder> queue;
-	
-	SellOrder order1("order 1", 100, 37.0, 1);
-	SellOrder order2("order 2", 100, 37.0, 2);
-
-	queue.add(order1);
-	queue.add(order2);
-
-	EXPECT_EQ(order1, queue.highestPriorityItem());
-}
-
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfTwoOrderTimesSecondPosition) {
-	PriorityQueue<SellOrder> queue;
-	
-	SellOrder order1("order 1", 100, 37.0, 2);
-	SellOrder order2("order 2", 100, 37.0, 1);
-
-	queue.add(order1);
-	queue.add(order2);
-
-	EXPECT_EQ(order2, queue.highestPriorityItem());
-}
-
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrdersFirstPosition) {
+TEST(QueueOrderPricePrioritySellOrder, GetHighestPriorityOfThreeOrdersFirstPosition) {
 	PriorityQueue<SellOrder> queue;
 	
 	SellOrder order1("order 1", 100, 35.0, 2);
@@ -386,7 +347,7 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrdersFirstPosition) {
 	EXPECT_EQ(order1, queue.highestPriorityItem());
 }
 
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrdersSecondPosition) {
+TEST(QueueOrderPricePrioritySellOrder, GetHighestPriorityOfThreeOrdersSecondPosition) {
 	PriorityQueue<SellOrder> queue;
 	
 	SellOrder order1("order 1", 100, 38.0, 2);
@@ -400,7 +361,7 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrdersSecondPosition) {
 	EXPECT_EQ(order2, queue.highestPriorityItem());
 }
 
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrdersThirdPosition) {
+TEST(QueueOrderPricePrioritySellOrder, GetHighestPriorityOfThreeOrdersThirdPosition) {
 	PriorityQueue<SellOrder> queue;
 	
 	SellOrder order1("order 1", 100, 38.0, 2);
@@ -414,7 +375,55 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrdersThirdPosition) {
 	EXPECT_EQ(order3, queue.highestPriorityItem());
 }
 
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrderTimesFirstPosition) {
+TEST(QueueOrderPricePrioritySellOrder, RemovePriorityOrderFromQueue) {
+	PriorityQueue<SellOrder> queue;
+	SellOrder order1("order 1", 100, 37.0, 2);
+	SellOrder order2("order 2", 100, 35.0, 1);
+	queue.add(order1);
+	queue.add(order2);
+	queue.removeHighestPriorityItem();
+	EXPECT_EQ(order1, queue.highestPriorityItem());
+}
+
+//----------------------------------------------------------------------------------------
+//-----------------------------QUEUESELLORDERTIMEPRIORITY-------------------------------------
+//----------------------------------------------------------------------------------------
+
+TEST(QueueOrderTimePrioritySellOrder, GetHighestPriorityOfOneOrderTime) {
+	PriorityQueue<SellOrder> queue;
+	
+	SellOrder order1("order 1", 100, 35.0, 1);
+	
+	queue.add(order1);
+
+	EXPECT_EQ(order1, queue.highestPriorityItem());
+}
+
+TEST(QueueOrderTimePrioritySellOrder, GetHighestPriorityOfTwoOrderTimesFirstPosition) {
+	PriorityQueue<SellOrder> queue;
+	
+	SellOrder order1("order 1", 100, 37.0, 1);
+	SellOrder order2("order 2", 100, 37.0, 2);
+
+	queue.add(order1);
+	queue.add(order2);
+
+	EXPECT_EQ(order1, queue.highestPriorityItem());
+}
+
+TEST(QueueOrderTimePrioritySellOrder, GetHighestPriorityOfTwoOrderTimesSecondPosition) {
+	PriorityQueue<SellOrder> queue;
+	
+	SellOrder order1("order 1", 100, 37.0, 2);
+	SellOrder order2("order 2", 100, 37.0, 1);
+
+	queue.add(order1);
+	queue.add(order2);
+
+	EXPECT_EQ(order2, queue.highestPriorityItem());
+}
+
+TEST(QueueOrderTimePrioritySellOrder, GetHighestPriorityOfThreeOrderTimesFirstPosition) {
 	PriorityQueue<SellOrder> queue;
 	
 	SellOrder order1("order 1", 100, 35.0, 1);
@@ -428,7 +437,7 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrderTimesFirstPosition) {
 	EXPECT_EQ(order1, queue.highestPriorityItem());
 }
 
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrderTimesSecondPosition) {
+TEST(QueueOrderTimePrioritySellOrder, GetHighestPriorityOfThreeOrderTimesSecondPosition) {
 	PriorityQueue<SellOrder> queue;
 	
 	SellOrder order1("order 1", 100, 35.0, 3);
@@ -442,7 +451,7 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrderTimesSecondPosition) 
 	EXPECT_EQ(order2, queue.highestPriorityItem());
 }
 
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrderTimesThirdPosition) {
+TEST(QueueOrderTimePrioritySellOrder, GetHighestPriorityOfThreeOrderTimesThirdPosition) {
 	PriorityQueue<SellOrder> queue;
 	
 	SellOrder order1("order 1", 100, 35.0, 3);
@@ -454,14 +463,4 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrderTimesThirdPosition) {
 	queue.add(order3);
 
 	EXPECT_EQ(order3, queue.highestPriorityItem());
-}
-
-TEST(QueuePrioritySellOrder, RemovePriorityOrderFromQueue) {
-	PriorityQueue<SellOrder> queue;
-	SellOrder order1("order 1", 100, 37.0, 2);
-	SellOrder order2("order 2", 100, 35.0, 1);
-	queue.add(order1);
-	queue.add(order2);
-	queue.removeHighestPriorityItem();
-	EXPECT_EQ(order1, queue.highestPriorityItem());
 }
