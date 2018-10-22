@@ -23,10 +23,10 @@ TEST(QueueConstructorBuyOrder, CopyConstructor) {
 	EXPECT_EQ(queue1.getTicker(), queue2.getTicker());
 	EXPECT_EQ(queue1.length(), queue2.length());
 	for(int i = 0; i < queue1.length(); i++) {
-		EXPECT_EQ(queue1.getDataFromIndex(i).getName(), queue2.getDataFromIndex(i).getName());
-		EXPECT_EQ(queue1.getDataFromIndex(i).getVolume(), queue2.getDataFromIndex(i).getVolume());
-		EXPECT_EQ(queue1.getDataFromIndex(i).getPrice(), queue2.getDataFromIndex(i).getPrice());
-		EXPECT_EQ(queue1.getDataFromIndex(i).getOrderTime(), queue2.getDataFromIndex(i).getOrderTime());	
+		EXPECT_EQ(queue1.highestPriorityData().getName(), queue2.highestPriorityData().getName());
+		EXPECT_EQ(queue1.highestPriorityData().getVolume(), queue2.highestPriorityData().getVolume());
+		EXPECT_EQ(queue1.highestPriorityData().getPrice(), queue2.highestPriorityData().getPrice());
+		EXPECT_EQ(queue1.highestPriorityData().getOrderTime(), queue2.highestPriorityData().getOrderTime());	
 	}
 }
 
@@ -48,10 +48,10 @@ TEST(QueueConstructorSellOrder, CopyConstructor) {
 	EXPECT_EQ(queue1.getTicker(), queue2.getTicker());
 	EXPECT_EQ(queue1.length(), queue2.length());
 	for(int i = 0; i < queue1.length(); i++) {
-		EXPECT_EQ(queue1.getDataFromIndex(i).getName(), queue2.getDataFromIndex(i).getName());
-		EXPECT_EQ(queue1.getDataFromIndex(i).getVolume(), queue2.getDataFromIndex(i).getVolume());
-		EXPECT_EQ(queue1.getDataFromIndex(i).getPrice(), queue2.getDataFromIndex(i).getPrice());
-		EXPECT_EQ(queue1.getDataFromIndex(i).getOrderTime(), queue2.getDataFromIndex(i).getOrderTime());	
+		EXPECT_EQ(queue1.highestPriorityData().getName(), queue2.highestPriorityData().getName());
+		EXPECT_EQ(queue1.highestPriorityData().getVolume(), queue2.highestPriorityData().getVolume());
+		EXPECT_EQ(queue1.highestPriorityData().getPrice(), queue2.highestPriorityData().getPrice());
+		EXPECT_EQ(queue1.highestPriorityData().getOrderTime(), queue2.highestPriorityData().getOrderTime());	
 	}
 }
 
@@ -62,17 +62,17 @@ TEST(QueueConstructorSellOrder, CopyConstructor) {
 TEST(QueueManipulationBuyOrder, CHeckingEmptyQueue) {
 	PriorityQueue<BuyOrder> queue;
 	
-	EXPECT_EQ("EmptyOrder", queue.getDataFromIndex(0).getName());
+	EXPECT_EQ("EmptyOrder", queue.highestPriorityData().getName());
 }
 
 TEST(QueueManipulationBuyOrder, AddingToQueue) {
 	PriorityQueue<BuyOrder> queue;
 	BuyOrder order("order 1", 100, 32.6, 123456789);
 	queue.add(order);
-	EXPECT_EQ(order.getName(), queue.getDataFromIndex(0).getName());
-	EXPECT_EQ(order.getVolume(), queue.getDataFromIndex(0).getVolume());
-	EXPECT_EQ(order.getPrice(), queue.getDataFromIndex(0).getPrice());
-	EXPECT_EQ(order.getOrderTime(), queue.getDataFromIndex(0).getOrderTime());
+	EXPECT_EQ(order.getName(), queue.highestPriorityData().getName());
+	EXPECT_EQ(order.getVolume(), queue.highestPriorityData().getVolume());
+	EXPECT_EQ(order.getPrice(), queue.highestPriorityData().getPrice());
+	EXPECT_EQ(order.getOrderTime(), queue.highestPriorityData().getOrderTime());
 }
 
 TEST(QueueManipulationBuyOrder, AddingMultipleToQueue) {
@@ -84,10 +84,10 @@ TEST(QueueManipulationBuyOrder, AddingMultipleToQueue) {
 	}
 	
 	for(int i = 0; i < 5; i++) {
-		EXPECT_EQ(order.getName(), queue.getDataFromIndex(i).getName());
-		EXPECT_EQ(order.getVolume(), queue.getDataFromIndex(i).getVolume());
-		EXPECT_EQ(order.getPrice(), queue.getDataFromIndex(i).getPrice());
-		EXPECT_EQ(order.getOrderTime(), queue.getDataFromIndex(i).getOrderTime());
+		EXPECT_EQ(order.getName(), queue.highestPriorityData().getName());
+		EXPECT_EQ(order.getVolume(), queue.highestPriorityData().getVolume());
+		EXPECT_EQ(order.getPrice(), queue.highestPriorityData().getPrice());
+		EXPECT_EQ(order.getOrderTime(), queue.highestPriorityData().getOrderTime());
 	}
 }
 
@@ -100,28 +100,11 @@ TEST(QueueManipulationBuyOrder, CreatingNewQueueArray) {
 	}
 	
 	for(int i = 0; i < 20; i++) {
-		EXPECT_EQ(order.getName(), queue.getDataFromIndex(i).getName());
-		EXPECT_EQ(order.getVolume(), queue.getDataFromIndex(i).getVolume());
-		EXPECT_EQ(order.getPrice(), queue.getDataFromIndex(i).getPrice());
-		EXPECT_EQ(order.getOrderTime(), queue.getDataFromIndex(i).getOrderTime());
+		EXPECT_EQ(order.getName(), queue.highestPriorityData().getName());
+		EXPECT_EQ(order.getVolume(), queue.highestPriorityData().getVolume());
+		EXPECT_EQ(order.getPrice(), queue.highestPriorityData().getPrice());
+		EXPECT_EQ(order.getOrderTime(), queue.highestPriorityData().getOrderTime());
 
-	}
-}
-
-TEST(QueueManipulationBuyOrder, CreatingMultipleNewQueueArrays) {
-	PriorityQueue<BuyOrder> queue;
-	
-	for(int i = 0; i < 200; i++) {
-		std::stringstream ss;
-		ss << i + 1 << " order\n";
-		BuyOrder order(ss.str(), 100, 32.6, i);
-		queue.add(order);
-	}
-	
-	for(int i = 0; i < 200; i++) {
-		std::stringstream ss;
-		ss << i + 1<< " order\n";
-		EXPECT_EQ(ss.str(), queue.getDataFromIndex(i).getName());
 	}
 }
 
@@ -132,7 +115,9 @@ TEST(QueueManipulationBuyOrder, CreatingMultipleNewQueueArrays) {
 TEST(QueueManipulationSellOrder, CHeckingEmptyQueue) {
 	PriorityQueue<SellOrder> queue;
 	
-	EXPECT_EQ("EmptyOrder", queue.getDataFromIndex(0).getName());
+	EXPECT_EQ("EmptyOrder", queue.highestPriorityData().getName());
+	
+	queue.print();
 }
 
 TEST(QueueManipulationSellOrder, AddingMultipleToQueue) {
@@ -144,10 +129,10 @@ TEST(QueueManipulationSellOrder, AddingMultipleToQueue) {
 	}
 	
 	for(int i = 0; i < 5; i++) {
-		EXPECT_EQ(order.getName(), queue.getDataFromIndex(i).getName());
-		EXPECT_EQ(order.getVolume(), queue.getDataFromIndex(i).getVolume());
-		EXPECT_EQ(order.getPrice(), queue.getDataFromIndex(i).getPrice());
-		EXPECT_EQ(order.getOrderTime(), queue.getDataFromIndex(i).getOrderTime());
+		EXPECT_EQ(order.getName(), queue.highestPriorityData().getName());
+		EXPECT_EQ(order.getVolume(), queue.highestPriorityData().getVolume());
+		EXPECT_EQ(order.getPrice(), queue.highestPriorityData().getPrice());
+		EXPECT_EQ(order.getOrderTime(), queue.highestPriorityData().getOrderTime());
 	}
 }
 
@@ -160,39 +145,22 @@ TEST(QueueManipulationSellOrder, CreatingNewQueueArray) {
 	}
 	
 	for(int i = 0; i < 20; i++) {
-		EXPECT_EQ(order.getName(), queue.getDataFromIndex(i).getName());
-		EXPECT_EQ(order.getVolume(), queue.getDataFromIndex(i).getVolume());
-		EXPECT_EQ(order.getPrice(), queue.getDataFromIndex(i).getPrice());
-		EXPECT_EQ(order.getOrderTime(), queue.getDataFromIndex(i).getOrderTime());
+		EXPECT_EQ(order.getName(), queue.highestPriorityData().getName());
+		EXPECT_EQ(order.getVolume(), queue.highestPriorityData().getVolume());
+		EXPECT_EQ(order.getPrice(), queue.highestPriorityData().getPrice());
+		EXPECT_EQ(order.getOrderTime(), queue.highestPriorityData().getOrderTime());
 
 	}
-}
-
-TEST(QueueManipulationSellOrder, CreatingMultipleNewQueueArrays) {
-	PriorityQueue<SellOrder> queue;
-	
-	for(int i = 0; i < 200; i++) {
-		std::stringstream ss;
-		ss << i + 1 << " order";
-		SellOrder order(ss.str(), 100, 32.6, i);
-		queue.add(order);
-	}
-	
-	for(int i = 0; i < 200; i++) {
-		std::stringstream ss;
-		ss << i + 1<< " order";
-		EXPECT_EQ(ss.str(), queue.getDataFromIndex(i).getName());
-	}	
 }
 
 TEST(QueueManipulationSellOrder, AddingToQueue) {
 	PriorityQueue<SellOrder> queue;
 	SellOrder order("order 1", 100, 32.6, 123456789);
 	queue.add(order);
-	EXPECT_EQ(order.getName(), queue.getDataFromIndex(0).getName());
-	EXPECT_EQ(order.getVolume(), queue.getDataFromIndex(0).getVolume());
-	EXPECT_EQ(order.getPrice(), queue.getDataFromIndex(0).getPrice());
-	EXPECT_EQ(order.getOrderTime(), queue.getDataFromIndex(0).getOrderTime());
+	EXPECT_EQ(order.getName(), queue.highestPriorityData().getName());
+	EXPECT_EQ(order.getVolume(), queue.highestPriorityData().getVolume());
+	EXPECT_EQ(order.getPrice(), queue.highestPriorityData().getPrice());
+	EXPECT_EQ(order.getOrderTime(), queue.highestPriorityData().getOrderTime());
 }
 
 //----------------------------------------------------------------------------------------
@@ -306,7 +274,7 @@ TEST(QueuePriorityBuyOrder, RemovePriorityOrderFromQueue) {
 	queue.add(order1);
 	queue.add(order2);
 	queue.removeHighestPriorityData();
-	EXPECT_EQ("EmptyOrder", queue.getDataFromIndex(1).getName());
+	EXPECT_EQ("order 1", queue.highestPriorityData().getName());
 }
 
 //----------------------------------------------------------------------------------------
@@ -414,10 +382,10 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrderTimes) {
 
 TEST(QueuePrioritySellOrder, RemovePriorityOrderFromQueue) {
 	PriorityQueue<SellOrder> queue;
-	SellOrder order1("order 1", 100, 35.0, 2);
-	SellOrder order2("order 2", 100, 37.0, 1);
+	SellOrder order1("order 1", 100, 37.0, 2);
+	SellOrder order2("order 2", 100, 35.0, 1);
 	queue.add(order1);
 	queue.add(order2);
 	queue.removeHighestPriorityData();
-	EXPECT_EQ("EmptyOrder", queue.getDataFromIndex(1).getName());
+	EXPECT_EQ("order 1", queue.highestPriorityData().getName());
 }

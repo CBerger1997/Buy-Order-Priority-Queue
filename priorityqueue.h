@@ -36,9 +36,6 @@ class PriorityQueue {
 		// Sets the ticker of the queue
 		void setTicker(const std::string& ticker);
 		
-		// Returns an data based upon the specified 'index'
-		T getDataFromIndex(int index) const;
-		
 		// Returns the highest priority data in the queue
 		// The highest priority data contains the highest price and/or shortest time
 		T highestPriorityData();
@@ -57,11 +54,6 @@ class PriorityQueue {
 		// Prints the priority queue to the output stream
 		void print();		
 };
-
-template <class T>
-inline T PriorityQueue<T>::getDataFromIndex(int index) const {
-	return m_PriorityQueue[index];
-}
 
 template <class T>
 inline std::string PriorityQueue<T>::getTicker() const {
@@ -144,7 +136,13 @@ T PriorityQueue<T>::highestPriorityData() {
 	
 	if(m_nextAvailableIndex > 0) {
 		for(int i = 0; i < m_nextAvailableIndex; i++) {
-			if(highestPriorityData < m_PriorityQueue[i]) {
+			if(highestPriorityData.getName() == "EmptyOrder") {
+				highestPriorityData = m_PriorityQueue[i];
+			}
+			else if(m_PriorityQueue[i].getName() == "EmptyOrder") {
+				continue;
+			}
+			else if(highestPriorityData < m_PriorityQueue[i]) {
 				highestPriorityData = m_PriorityQueue[i];
 			}
 		}

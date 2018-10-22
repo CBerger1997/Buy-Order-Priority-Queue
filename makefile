@@ -1,6 +1,6 @@
 INCLUDE_DIRS = -I. -I/home/ibutt/googletest-master/googletest/include
 WARNINGS = -Wall -Werror
-OBJECTS = buyorder.o buyorder.t.o sellorder.o sellorder.t.o priorityqueue.o priorityqueue.t.o
+OBJECTS = buyorder.o buyorder.t.o sellorder.o sellorder.t.o priorityqueue.t.o
 GTESTMAIN = /home/ibutt/googletest-master/googletest/make/gtest_main.a
 
 priorityqueue : $(OBJECTS)
@@ -18,9 +18,6 @@ sellorder.o : sellorder.cpp sellorder.h
 sellorder.t.o : sellorder.t.cpp sellorder.h
 	g++ $(WARNINGS) $(INCLUDE_DIRS) -c sellorder.t.cpp
 	
-priorityqueue.o : priorityqueue.cpp priorityqueue.h
-	g++ $(WARNINGS) $(INCLUDE_DIRS) -c priorityqueue.cpp
-
 priorityqueue.t.o : priorityqueue.t.cpp priorityqueue.h
 	g++ $(WARNINGS) $(INCLUDE_DIRS) -c priorityqueue.t.cpp
 	
