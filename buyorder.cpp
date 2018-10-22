@@ -7,7 +7,7 @@ BuyOrder::BuyOrder()
 	
 }
 
-BuyOrder::BuyOrder(BuyOrder& buyorder) 
+BuyOrder::BuyOrder(const BuyOrder& buyorder) 
 : m_name(buyorder.m_name), m_volume(buyorder.m_volume), m_price(buyorder.m_price), m_orderTime(buyorder.m_orderTime) {
 
 }
@@ -18,5 +18,5 @@ BuyOrder::BuyOrder(const std::string& name, int volume, double price, long order
 }
 
 BuyOrder::~BuyOrder() {
-	
+
 }

@@ -17,7 +17,7 @@ class SellOrder{
 		SellOrder();
 		
 		// Constructs a SellOrder object and sets memeber values equalt to the specified 'sellorder'
-		SellOrder(SellOrder& sellorder);
+		SellOrder(const SellOrder& sellorder);
 		
 		// Constructs a SellOrder based upon the specified variables passed through the parameters
 		SellOrder(const std::string& name, int volume, double price, long orderTime);
@@ -113,7 +113,13 @@ inline std::string SellOrder::print(SellOrder sellorder) {
 }
 
 inline bool SellOrder::operator<(const SellOrder& rhs) {
-	if (m_price == rhs.m_price) {
+	if(this->getName() == "EmptyOrder") {
+		return true;
+	}
+	else if(rhs.getName() == "EmptyOrder") {
+		return false;
+	}
+	else if (m_price == rhs.m_price) {
 		if (m_orderTime > rhs.m_orderTime) {
 			return true;
 		}

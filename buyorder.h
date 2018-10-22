@@ -17,7 +17,7 @@ class BuyOrder{
 		BuyOrder();
 		
 		// Constructs a BuyOrder object and sets memeber values equalt to the specified 'buyorder'
-		BuyOrder(BuyOrder& buyorder);
+		BuyOrder(const BuyOrder& buyorder);
 		
 		// Constructs a BuyOrder based upon the specified variables passed through the parameters
 		BuyOrder(const std::string& name, int volume, double price, long orderTime);
@@ -113,6 +113,12 @@ inline std::string BuyOrder::print(BuyOrder buyorder) {
 }
 
 inline bool BuyOrder::operator<(const BuyOrder& rhs) {
+	if(this->getName() == "EmptyOrder") {
+		return true;
+	}
+	else if(rhs.getName() == "EmptyOrder") {
+		return false;
+	}	
 	if (m_price == rhs.m_price) {
 		if (m_orderTime > rhs.m_orderTime) {
 			return true;

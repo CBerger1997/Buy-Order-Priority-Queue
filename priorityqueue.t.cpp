@@ -14,7 +14,7 @@ TEST(QueueConstructorBuyOrder, TickerConstructor) {
 
 TEST(QueueConstructorBuyOrder, CopyConstructor) {
 	PriorityQueue<BuyOrder> queue1("VOD.L");
-	BuyOrder order("order 1", 100, 32.6, 123456789);
+	BuyOrder order("order 1", 100, 32.6, 1);
 	queue1.add(order);
 	PriorityQueue<BuyOrder> queue2(queue1);
 	
@@ -36,7 +36,7 @@ TEST(QueueConstructorSellOrder, TickerConstructor) {
 
 TEST(QueueConstructorSellOrder, CopyConstructor) {
 	PriorityQueue<SellOrder> queue1("VOD.L");
-	SellOrder order("order 1", 100, 32.6, 123456789);
+	SellOrder order("order 1", 100, 32.6, 1);
 	queue1.add(order);
 	PriorityQueue<SellOrder> queue2(queue1);
 	
@@ -51,7 +51,7 @@ TEST(QueueConstructorSellOrder, CopyConstructor) {
 //-----------------------------QUEUEBUYORDERMANIPULATOR-----------------------------------
 //----------------------------------------------------------------------------------------
 
-TEST(QueueManipulationBuyOrder, CHeckingEmptyQueue) {
+TEST(QueueManipulationBuyOrder, CheckingEmptyQueue) {
 	PriorityQueue<BuyOrder> queue;
 	
 	EXPECT_EQ(true, queue.isEmpty());
@@ -59,14 +59,14 @@ TEST(QueueManipulationBuyOrder, CHeckingEmptyQueue) {
 
 TEST(QueueManipulationBuyOrder, AddingToQueue) {
 	PriorityQueue<BuyOrder> queue;
-	BuyOrder order("order 1", 100, 32.6, 123456789);
+	BuyOrder order("order 1", 100, 32.6, 1);
 	queue.add(order);
 	EXPECT_EQ(order, queue.highestPriorityItem());
 }
 
 TEST(QueueManipulationBuyOrder, AddingMultipleToQueue) {
 	PriorityQueue<BuyOrder> queue;
-	BuyOrder order("order 1", 100, 32.6, 123456789);
+	BuyOrder order("order 1", 100, 32.6, 1);
 	
 	for(int i = 0; i < 5; i++) {
 		queue.add(order);
@@ -79,7 +79,7 @@ TEST(QueueManipulationBuyOrder, AddingMultipleToQueue) {
 
 TEST(QueueManipulationBuyOrder, CreatingNewQueueArray) {
 	PriorityQueue<BuyOrder> queue;
-	BuyOrder order("order 1", 100, 32.6, 123456789);
+	BuyOrder order("order 1", 100, 32.6, 1);
 	
 	for(int i = 0; i < 20; i++) {
 		queue.add(order);
@@ -94,7 +94,7 @@ TEST(QueueManipulationBuyOrder, CreatingNewQueueArray) {
 //-----------------------------QUEUESELLORDERMANIPULATOR----------------------------------
 //----------------------------------------------------------------------------------------
 
-TEST(QueueManipulationSellOrder, CHeckingEmptyQueue) {
+TEST(QueueManipulationSellOrder, CheckingEmptyQueue) {
 	PriorityQueue<SellOrder> queue;
 	
 	EXPECT_EQ(true, queue.isEmpty());
@@ -102,7 +102,7 @@ TEST(QueueManipulationSellOrder, CHeckingEmptyQueue) {
 
 TEST(QueueManipulationSellOrder, AddingMultipleToQueue) {
 	PriorityQueue<SellOrder> queue;
-	SellOrder order("order 1", 100, 32.6, 123456789);
+	SellOrder order("order 1", 100, 32.6, 1);
 	
 	for(int i = 0; i < 5; i++) {
 		queue.add(order);
@@ -115,7 +115,7 @@ TEST(QueueManipulationSellOrder, AddingMultipleToQueue) {
 
 TEST(QueueManipulationSellOrder, CreatingNewQueueArray) {
 	PriorityQueue<SellOrder> queue;
-	SellOrder order("order 1", 100, 32.6, 123456789);
+	SellOrder order("order 1", 100, 32.6, 1);
 	
 	for(int i = 0; i < 20; i++) {
 		queue.add(order);
@@ -129,7 +129,7 @@ TEST(QueueManipulationSellOrder, CreatingNewQueueArray) {
 
 TEST(QueueManipulationSellOrder, AddingToQueue) {
 	PriorityQueue<SellOrder> queue;
-	SellOrder order("order 1", 100, 32.6, 123456789);
+	SellOrder order("order 1", 100, 32.6, 1);
 	queue.add(order);
 	EXPECT_EQ(order, queue.highestPriorityItem());
 }

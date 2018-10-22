@@ -7,7 +7,7 @@ SellOrder::SellOrder()
 
 }
 
-SellOrder::SellOrder(SellOrder& sellorder)
+SellOrder::SellOrder(const SellOrder& sellorder)
 : m_name(sellorder.m_name), m_volume(sellorder.m_volume), m_price(sellorder.m_price), m_orderTime(sellorder.m_orderTime) {
 
 }
@@ -18,5 +18,5 @@ SellOrder::SellOrder(const std::string& name, int volume, double price, long ord
 }
 
 SellOrder::~SellOrder() {
-	
+
 }

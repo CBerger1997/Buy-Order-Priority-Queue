@@ -1,31 +1,29 @@
 #ifndef __PRIORITYQUEUE__
 #define __PRIORITYQUEUE__
 
-#include <buyorder.h>
-#include <sellorder.h>
 #include <iostream>
-#include <typeinfo>
+#include <sstream>
+#include <vector>
 
 template <class T>
 class PriorityQueue {
 	private:
-		T *m_PriorityQueue;
-		int m_nextAvailableIndex;
-		int m_capacity;
+		std::vector<T> m_priorityQueue;
+		
 		std::string m_ticker;
 		
-		//
-		void resize();
+		//resizes the priority queue to handle more items when the capacity of the current queue is reached
+		//void resize();
 
 	public:
 		// Constructs an empty queue
 		PriorityQueue();
 		
 		// Constructs a queue and sets memeber values equalt to the specified 'priorityqueue'
-		PriorityQueue(PriorityQueue& priorityqueue);
+		PriorityQueue(const PriorityQueue& priorityQueue);
 		
 		// Constructs a queue and assigns the ticker value
-		PriorityQueue(std::string ticker);
+		PriorityQueue(const std::string& ticker);
 		
 		// Destorys this object
 		~PriorityQueue();
@@ -37,7 +35,6 @@ class PriorityQueue {
 		void setTicker(const std::string& ticker);
 		
 		// Returns the highest priority item in the queue
-		// The highest priority item contains the highest price and/or shortest time
 		T highestPriorityItem();
 
 		// Adds the specified 'item' to the priority queue
@@ -45,7 +42,6 @@ class PriorityQueue {
 		void add(T newItem);
 		
 		// Removes the highest priority item from the queue
-		// The highest priority item contains the highest price and/or shortest time
 		void removeHighestPriorityItem();
 		
 		// Returns true if the queue is empty otherwise returns false
@@ -57,6 +53,10 @@ class PriorityQueue {
 		// Prints the priority queue to the output stream
 		void print();		
 };
+
+//----------------------------------------------------------------------------------------
+//----------------------------------INLINE FUNCTIONS--------------------------------------
+//----------------------------------------------------------------------------------------
 
 template <class T>
 inline std::string PriorityQueue<T>::getTicker() const {
@@ -70,87 +70,50 @@ inline void PriorityQueue<T>::setTicker(const std::string& ticker) {
 
 template <class T>
 inline int PriorityQueue<T>::length() {
-	return m_nextAvailableIndex;
+	return m_priorityQueue.size();
 }
 
 template <class T>
 inline bool PriorityQueue<T>::isEmpty() {
-	return m_nextAvailableIndex == 0;
+	return m_priorityQueue.size() == 0;
 }
 
 template <class T>
-inline void PriorityQueue<T>::print() {
-	std::stringstream ss;
-	
-	for(int i = 0; i < m_capacity; i++) {
-		ss << m_PriorityQueue[i] << '\n';
-	}
-	
-	std::cout << ss.str();
-}
-
-template <class T>
-PriorityQueue<T>::PriorityQueue() : m_nextAvailableIndex(0), m_capacity(15), m_ticker("") {
-	m_PriorityQueue = new T[m_capacity];
+PriorityQueue<T>::PriorityQueue() : m_ticker("") {
 
 }
 
+
+
 template <class T>
-PriorityQueue<T>::PriorityQueue(PriorityQueue& priorityqueue) : m_nextAvailableIndex(priorityqueue.m_nextAvailableIndex), m_capacity(priorityqueue.m_capacity), m_ticker(priorityqueue.m_ticker) {
-	m_PriorityQueue = new T[m_capacity];
-	
-	for(int i = 0; i < priorityqueue.m_capacity; i++) {
-		m_PriorityQueue[i] = priorityqueue.m_PriorityQueue[i];
+PriorityQueue<T>::PriorityQueue(const PriorityQueue& priorityQueue) : m_ticker(priorityQueue.m_ticker) {	
+	for(int i = 0; i < priorityQueue.m_priorityQueue.size(); i++) {
+		m_priorityQueue.push_back(priorityQueue.m_priorityQueue[i]);
 	}
 }
 
 template <class T>
-PriorityQueue<T>::PriorityQueue(std::string ticker) : m_ticker(ticker) {
-	m_nextAvailableIndex = 0;
-	m_capacity = 15;	
-	m_PriorityQueue = new T[m_capacity];
+PriorityQueue<T>::PriorityQueue(const std::string& ticker) : m_ticker(ticker) {
 }
 
 template <class T>
 PriorityQueue<T>::~PriorityQueue() {
-	delete[] m_PriorityQueue;
 }
 
 template <class T>
 void PriorityQueue<T>::add(T newItem) {
-	m_PriorityQueue[m_nextAvailableIndex] = newItem;
-	m_nextAvailableIndex++;
-	
-	if(m_nextAvailableIndex >= m_capacity)
-	{
-		resize();
-	}
-}
-
-template <class T>
-void PriorityQueue<T>::resize() {
-	m_capacity += 15;
-	T* newQueue = new T[m_capacity];
-	std::copy(m_PriorityQueue, m_PriorityQueue + std::min(m_capacity - 15, m_capacity), newQueue);
-	delete[] m_PriorityQueue;
-	m_PriorityQueue = newQueue;
+	m_priorityQueue.push_back(newItem);
 }
 
 template <class T>
 T PriorityQueue<T>::highestPriorityItem() {
 	T highestPriorityItem;	
-	highestPriorityItem = m_PriorityQueue[0];
+	highestPriorityItem = m_priorityQueue[0];
 	
 	if(!isEmpty()) {
-		for(int i = 0; i < m_nextAvailableIndex; i++) {
-			if(highestPriorityItem.getName() == "EmptyOrder") {
-				highestPriorityItem = m_PriorityQueue[i];
-			}
-			else if(m_PriorityQueue[i].getName() == "EmptyOrder") {
-				continue;
-			}
-			else if(highestPriorityItem < m_PriorityQueue[i]) {
-				highestPriorityItem = m_PriorityQueue[i];
+		for(int i = 0; i < m_priorityQueue.size(); i++) {
+			if(highestPriorityItem < m_priorityQueue[i]) {
+				highestPriorityItem = m_priorityQueue[i];
 			}
 		}
 	}	
@@ -163,12 +126,22 @@ void PriorityQueue<T>::removeHighestPriorityItem() {
 	
 	itemToRemove = highestPriorityItem();
 	
-	for(int i = 0; i < m_nextAvailableIndex; i++) {	
-		if(m_PriorityQueue[i] == itemToRemove) {
-			std::copy(m_PriorityQueue + i + 1, m_PriorityQueue + m_capacity - 1, m_PriorityQueue + i);
-			m_nextAvailableIndex--;
+	for(int i = 0; i < m_priorityQueue.size(); i++) {	
+		if(m_priorityQueue[i] == itemToRemove) {
+			m_priorityQueue.erase(m_priorityQueue.begin()+i);
 			return;
 		}
 	}
+}
+
+template <class T>
+void PriorityQueue<T>::print() {
+	std::stringstream ss;
+	
+	for(int i = 0; i < m_priorityQueue.size(); i++) {
+		ss << m_priorityQueue[i] << '\n';
+	}
+	
+	std::cout << ss.str();
 }
 #endif
