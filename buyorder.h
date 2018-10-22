@@ -64,7 +64,7 @@ class BuyOrder{
 		
 		// Operator which returns true if the current object 
 		// And specified 'rhs' have the same member variables
-		bool operator==(const BuyOrder& rhs);
+		bool operator==(const BuyOrder& rhs) const;
 		
 		// Operator overloading for the output stream
 		friend std::ostream& operator<<(std::ostream &os, const BuyOrder &buyorder);
@@ -138,8 +138,8 @@ inline BuyOrder BuyOrder::operator=(const BuyOrder& rhs) {
 	return *this;
 }
 
-inline bool BuyOrder::operator==(const BuyOrder& rhs) {
-	if (m_name == rhs.m_name &&	m_volume == rhs.m_volume && m_price == rhs.m_price && m_orderTime == rhs.m_orderTime) {
+inline bool BuyOrder::operator==(const BuyOrder& rhs) const {
+	if (this->m_name == rhs.m_name && this->m_volume == rhs.m_volume && this->m_price == rhs.m_price && this->m_orderTime == rhs.m_orderTime) {
 		return true;
 	}
 	return false;
