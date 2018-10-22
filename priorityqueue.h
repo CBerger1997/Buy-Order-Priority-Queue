@@ -153,8 +153,7 @@ T PriorityQueue<T>::highestPriorityItem() {
 				highestPriorityItem = m_PriorityQueue[i];
 			}
 		}
-	}
-	
+	}	
 	return highestPriorityItem;
 }
 
@@ -164,9 +163,10 @@ void PriorityQueue<T>::removeHighestPriorityItem() {
 	
 	itemToRemove = highestPriorityItem();
 	
-	for(int i = 0; i < m_nextAvailableIndex; i++) {		
+	for(int i = 0; i < m_nextAvailableIndex; i++) {	
 		if(m_PriorityQueue[i] == itemToRemove) {
 			std::copy(m_PriorityQueue + i + 1, m_PriorityQueue + m_capacity - 1, m_PriorityQueue + i);
+			m_nextAvailableIndex--;
 			return;
 		}
 	}

@@ -54,7 +54,7 @@ TEST(QueueConstructorSellOrder, CopyConstructor) {
 TEST(QueueManipulationBuyOrder, CHeckingEmptyQueue) {
 	PriorityQueue<BuyOrder> queue;
 	
-	EXPECT_EQ("EmptyOrder", queue.highestPriorityItem().getName());
+	EXPECT_EQ(true, queue.isEmpty());
 }
 
 TEST(QueueManipulationBuyOrder, AddingToQueue) {
@@ -97,7 +97,7 @@ TEST(QueueManipulationBuyOrder, CreatingNewQueueArray) {
 TEST(QueueManipulationSellOrder, CHeckingEmptyQueue) {
 	PriorityQueue<SellOrder> queue;
 	
-	EXPECT_EQ("EmptyOrder", queue.highestPriorityItem().getName());
+	EXPECT_EQ(true, queue.isEmpty());
 }
 
 TEST(QueueManipulationSellOrder, AddingMultipleToQueue) {
