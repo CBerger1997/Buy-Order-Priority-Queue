@@ -1,7 +1,6 @@
 #ifndef __BUYORDER__
 #define __BUYORDER__
 
-#include <iostream>
 #include <string>
 #include <sstream>
 
@@ -54,7 +53,7 @@ class BuyOrder{
 		
 		// Operator comparing the price of two orders and returns true if the current object 
 		// Buy order price is less than the specified 'rhs' price
-		// Or if the prices are equal then returns true if the order time of this object is
+		// If the prices are equal then returns true if the order time of this object is
 		// Less than that of the specified 'rhs' otherwise returns false
 		bool operator<(const BuyOrder& rhs);
 		
@@ -69,6 +68,10 @@ class BuyOrder{
 		// Operator overloading for the output stream
 		friend std::ostream& operator<<(std::ostream &os, const BuyOrder &buyorder);
 };
+
+//----------------------------------------------------------------------------------------
+//----------------------------------INLINE FUNCTIONS--------------------------------------
+//----------------------------------------------------------------------------------------
 
 inline std::string BuyOrder::getName() const {
 	return m_name;
