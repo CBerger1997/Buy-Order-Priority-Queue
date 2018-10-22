@@ -36,17 +36,17 @@ class PriorityQueue {
 		// Sets the ticker of the queue
 		void setTicker(const std::string& ticker);
 		
-		// Returns the highest priority data in the queue
-		// The highest priority data contains the highest price and/or shortest time
-		T highestPriorityData();
+		// Returns the highest priority item in the queue
+		// The highest priority item contains the highest price and/or shortest time
+		T highestPriorityItem();
 
-		// Adds the specified 'data' to the priority queue
+		// Adds the specified 'item' to the priority queue
 		// The queue will automatically resize when required
-		void add(T newData);
+		void add(T newItem);
 		
-		// Removes the highest priority data from the queue
-		// The highest priority data contains the highest price and/or shortest time
-		void removeHighestPriorityData();
+		// Removes the highest priority item from the queue
+		// The highest priority item contains the highest price and/or shortest time
+		void removeHighestPriorityItem();
 		
 		// Returns the length of the priority queue
 		int length();
@@ -96,7 +96,6 @@ PriorityQueue<T>::PriorityQueue(PriorityQueue& priorityqueue) : m_nextAvailableI
 	}
 }
 
-
 template <class T>
 PriorityQueue<T>::PriorityQueue(std::string ticker) : m_ticker(ticker) {
 	m_nextAvailableIndex = 0;
@@ -110,8 +109,8 @@ PriorityQueue<T>::~PriorityQueue() {
 }
 
 template <class T>
-void PriorityQueue<T>::add(T newData) {
-	m_PriorityQueue[m_nextAvailableIndex] = newData;
+void PriorityQueue<T>::add(T newItem) {
+	m_PriorityQueue[m_nextAvailableIndex] = newItem;
 	m_nextAvailableIndex++;
 	
 	if(m_nextAvailableIndex >= m_capacity)
@@ -130,35 +129,35 @@ void PriorityQueue<T>::resize() {
 }
 
 template <class T>
-T PriorityQueue<T>::highestPriorityData() {
-	T highestPriorityData;	
-	highestPriorityData = m_PriorityQueue[0];
+T PriorityQueue<T>::highestPriorityItem() {
+	T highestPriorityItem;	
+	highestPriorityItem = m_PriorityQueue[0];
 	
 	if(m_nextAvailableIndex > 0) {
 		for(int i = 0; i < m_nextAvailableIndex; i++) {
-			if(highestPriorityData.getName() == "EmptyOrder") {
-				highestPriorityData = m_PriorityQueue[i];
+			if(highestPriorityItem.getName() == "EmptyOrder") {
+				highestPriorityItem = m_PriorityQueue[i];
 			}
 			else if(m_PriorityQueue[i].getName() == "EmptyOrder") {
 				continue;
 			}
-			else if(highestPriorityData < m_PriorityQueue[i]) {
-				highestPriorityData = m_PriorityQueue[i];
+			else if(highestPriorityItem < m_PriorityQueue[i]) {
+				highestPriorityItem = m_PriorityQueue[i];
 			}
 		}
 	}
 	
-	return highestPriorityData;
+	return highestPriorityItem;
 }
 
 template <class T>
-void PriorityQueue<T>::removeHighestPriorityData() {
-	T dataToRemove;
+void PriorityQueue<T>::removeHighestPriorityItem() {
+	T itemToRemove;
 	
-	dataToRemove = highestPriorityData();
+	itemToRemove = highestPriorityItem();
 	
 	for(int i = 0; i < m_nextAvailableIndex; i++) {		
-		if(m_PriorityQueue[i] == dataToRemove) {
+		if(m_PriorityQueue[i] == itemToRemove) {
 			std::copy(m_PriorityQueue + i + 1, m_PriorityQueue + m_capacity - 1, m_PriorityQueue + i);
 			return;
 		}
