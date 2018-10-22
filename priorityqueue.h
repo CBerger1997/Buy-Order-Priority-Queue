@@ -48,6 +48,9 @@ class PriorityQueue {
 		// The highest priority item contains the highest price and/or shortest time
 		void removeHighestPriorityItem();
 		
+		// Returns true if the queue is empty otherwise returns false
+		bool isEmpty();
+		
 		// Returns the length of the priority queue
 		int length();
 		
@@ -68,6 +71,11 @@ inline void PriorityQueue<T>::setTicker(const std::string& ticker) {
 template <class T>
 inline int PriorityQueue<T>::length() {
 	return m_nextAvailableIndex;
+}
+
+template <class T>
+inline bool PriorityQueue<T>::isEmpty() {
+	return m_nextAvailableIndex == 0;
 }
 
 template <class T>
@@ -133,7 +141,7 @@ T PriorityQueue<T>::highestPriorityItem() {
 	T highestPriorityItem;	
 	highestPriorityItem = m_PriorityQueue[0];
 	
-	if(m_nextAvailableIndex > 0) {
+	if(!isEmpty()) {
 		for(int i = 0; i < m_nextAvailableIndex; i++) {
 			if(highestPriorityItem.getName() == "EmptyOrder") {
 				highestPriorityItem = m_PriorityQueue[i];

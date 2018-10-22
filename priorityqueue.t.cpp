@@ -98,8 +98,6 @@ TEST(QueueManipulationSellOrder, CHeckingEmptyQueue) {
 	PriorityQueue<SellOrder> queue;
 	
 	EXPECT_EQ("EmptyOrder", queue.highestPriorityItem().getName());
-	
-	queue.print();
 }
 
 TEST(QueueManipulationSellOrder, AddingMultipleToQueue) {
@@ -160,7 +158,19 @@ TEST(QueuePriorityBuyOrder, GetHighestPriorityOfOneOrderTime) {
 	EXPECT_EQ(order1, queue.highestPriorityItem());
 }
 
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfTwoPrices) {
+TEST(QueuePriorityBuyOrder, GetHighestPriorityOfTwoOrdersFirstPosition) {
+	PriorityQueue<BuyOrder> queue;
+	
+	BuyOrder order1("order 1", 100, 37.0, 2);
+	BuyOrder order2("order 2", 100, 35.0, 1);
+
+	queue.add(order1);
+	queue.add(order2);
+
+	EXPECT_EQ(order1, queue.highestPriorityItem());
+}
+
+TEST(QueuePriorityBuyOrder, GetHighestPriorityOfTwoOrdersSecondPosition) {
 	PriorityQueue<BuyOrder> queue;
 	
 	BuyOrder order1("order 1", 100, 35.0, 2);
@@ -184,7 +194,7 @@ TEST(QueuePriorityBuyOrder, GetHighestPriorityOfTwoOrderTimes) {
 	EXPECT_EQ(order2, queue.highestPriorityItem());
 }
 
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreePricesFirstPosition) {
+TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrdersFirstPosition) {
 	PriorityQueue<BuyOrder> queue;
 	
 	BuyOrder order1("order 1", 100, 38.0, 2);
@@ -198,7 +208,7 @@ TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreePricesFirstPosition) {
 	EXPECT_EQ(order1, queue.highestPriorityItem());
 }
 
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreePricesSecondPosition) {
+TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrdersSecondPosition) {
 	PriorityQueue<BuyOrder> queue;
 	
 	BuyOrder order1("order 1", 100, 35.0, 2);
@@ -212,7 +222,7 @@ TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreePricesSecondPosition) {
 	EXPECT_EQ(order2, queue.highestPriorityItem());
 }
 
-TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreePricesThirdPosition) {
+TEST(QueuePriorityBuyOrder, GetHighestPriorityOfThreeOrdersThirdPosition) {
 	PriorityQueue<BuyOrder> queue;
 	
 	BuyOrder order1("order 1", 100, 35.0, 2);
@@ -273,7 +283,7 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfOneOrderTime) {
 	EXPECT_EQ(order1, queue.highestPriorityItem());
 }
 
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfTwoPrices) {
+TEST(QueuePrioritySellOrder, GetHighestPriorityOfTwoOrdersFirstPosition) {
 	PriorityQueue<SellOrder> queue;
 	
 	SellOrder order1("order 1", 100, 35.0, 2);
@@ -283,6 +293,18 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfTwoPrices) {
 	queue.add(order2);
 
 	EXPECT_EQ(order1, queue.highestPriorityItem());
+}
+
+TEST(QueuePrioritySellOrder, GetHighestPriorityOfTwoOrdersSecondPosition) {
+	PriorityQueue<SellOrder> queue;
+	
+	SellOrder order1("order 1", 100, 37.0, 2);
+	SellOrder order2("order 2", 100, 35.0, 1);
+
+	queue.add(order1);
+	queue.add(order2);
+
+	EXPECT_EQ(order2, queue.highestPriorityItem());
 }
 
 TEST(QueuePrioritySellOrder, GetHighestPriorityOfTwoOrderTimes) {
@@ -297,7 +319,7 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfTwoOrderTimes) {
 	EXPECT_EQ(order2, queue.highestPriorityItem());
 }
 
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreePricesFirstPosition) {
+TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrdersFirstPosition) {
 	PriorityQueue<SellOrder> queue;
 	
 	SellOrder order1("order 1", 100, 35.0, 2);
@@ -311,7 +333,7 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreePricesFirstPosition) {
 	EXPECT_EQ(order1, queue.highestPriorityItem());
 }
 
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreePricesSecondPosition) {
+TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrdersSecondPosition) {
 	PriorityQueue<SellOrder> queue;
 	
 	SellOrder order1("order 1", 100, 38.0, 2);
@@ -325,7 +347,7 @@ TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreePricesSecondPosition) {
 	EXPECT_EQ(order2, queue.highestPriorityItem());
 }
 
-TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreePricesThirdPosition) {
+TEST(QueuePrioritySellOrder, GetHighestPriorityOfThreeOrdersThirdPosition) {
 	PriorityQueue<SellOrder> queue;
 	
 	SellOrder order1("order 1", 100, 38.0, 2);
