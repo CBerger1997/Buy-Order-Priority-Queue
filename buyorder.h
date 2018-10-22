@@ -113,10 +113,10 @@ inline std::string BuyOrder::print(BuyOrder buyorder) {
 }
 
 inline bool BuyOrder::operator<(const BuyOrder& rhs) {
-	if(this->getName() == "EmptyOrder") {
+	if (this->getName() == "EmptyOrder") {
 		return true;
 	}
-	else if(rhs.getName() == "EmptyOrder") {
+	else if (rhs.getName() == "EmptyOrder") {
 		return false;
 	}	
 	if (m_price == rhs.m_price) {

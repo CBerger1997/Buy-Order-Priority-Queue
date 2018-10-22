@@ -8,12 +8,8 @@
 template <class T>
 class PriorityQueue {
 	private:
-		std::vector<T> m_priorityQueue;
-		
+		std::vector<T> m_priorityQueue;	
 		std::string m_ticker;
-		
-		//resizes the priority queue to handle more items when the capacity of the current queue is reached
-		//void resize();
 
 	public:
 		// Constructs an empty queue
@@ -48,7 +44,7 @@ class PriorityQueue {
 		bool isEmpty();
 		
 		// Returns the length of the priority queue
-		int length();
+		size_t length();
 		
 		// Prints the priority queue to the output stream
 		void print();		
@@ -69,7 +65,7 @@ inline void PriorityQueue<T>::setTicker(const std::string& ticker) {
 }
 
 template <class T>
-inline int PriorityQueue<T>::length() {
+inline size_t PriorityQueue<T>::length() {
 	return m_priorityQueue.size();
 }
 
@@ -83,11 +79,9 @@ PriorityQueue<T>::PriorityQueue() : m_ticker("") {
 
 }
 
-
-
 template <class T>
 PriorityQueue<T>::PriorityQueue(const PriorityQueue& priorityQueue) : m_ticker(priorityQueue.m_ticker) {	
-	for(int i = 0; i < priorityQueue.m_priorityQueue.size(); i++) {
+	for (int i = 0; i < priorityQueue.m_priorityQueue.size(); i++) {
 		m_priorityQueue.push_back(priorityQueue.m_priorityQueue[i]);
 	}
 }
@@ -110,9 +104,9 @@ T PriorityQueue<T>::highestPriorityItem() {
 	T highestPriorityItem;	
 	highestPriorityItem = m_priorityQueue[0];
 	
-	if(!isEmpty()) {
-		for(int i = 0; i < m_priorityQueue.size(); i++) {
-			if(highestPriorityItem < m_priorityQueue[i]) {
+	if (!isEmpty()) {
+		for (int i = 1; i < m_priorityQueue.size(); i++) {
+			if (highestPriorityItem < m_priorityQueue[i]) {
 				highestPriorityItem = m_priorityQueue[i];
 			}
 		}
@@ -126,8 +120,8 @@ void PriorityQueue<T>::removeHighestPriorityItem() {
 	
 	itemToRemove = highestPriorityItem();
 	
-	for(int i = 0; i < m_priorityQueue.size(); i++) {	
-		if(m_priorityQueue[i] == itemToRemove) {
+	for (int i = 0; i < m_priorityQueue.size(); i++) {	
+		if (m_priorityQueue[i] == itemToRemove) {
 			m_priorityQueue.erase(m_priorityQueue.begin()+i);
 			return;
 		}
@@ -138,7 +132,7 @@ template <class T>
 void PriorityQueue<T>::print() {
 	std::stringstream ss;
 	
-	for(int i = 0; i < m_priorityQueue.size(); i++) {
+	for (int i = 0; i < m_priorityQueue.size(); i++) {
 		ss << m_priorityQueue[i] << '\n';
 	}
 	
